@@ -2,9 +2,10 @@ let bar, slider;
 let oldSliderValue;
 
 function setup() {
-  createCanvas(400, 400);
+  // createCanvas(400, 400);
+  createCanvas(windowWidth, windowHeight);
   // Create a slider and place it at the top of the canvas.
-  slider = createSlider(1, 200);
+  slider = createSlider(1, width/2);
   slider.position(10, 10);
   slider.size(100);
   createBar();
@@ -48,4 +49,8 @@ function createBar(){
   // Update the image's pixel values.
   bar.updatePixels();
   // bar.filter(BLUR, 5);
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
 }
