@@ -1,7 +1,6 @@
-console.log("sketch working");
-let asc = true;
-
 sketches.sort(); //sort sketches in palce
+sketches.reverse(); //show most recent first
+let asc = false;
 buildList();
 
 //add event listeners to asc, desc, and random
