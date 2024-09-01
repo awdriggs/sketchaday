@@ -11,38 +11,27 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- <script src="index.js"></script> -->
-
   <main class="wrapper">
     <h1 id="page-title">a sketch a day</h1>
 
     <p class="tag-line">all sketches written with <a href="https://p5js.org/">p5.js</a></p>
 
-    <ul>
-      <li>
-        <a href="./d08272024/index.html">08272024</a>
-      </li>
+    <menu class="buttons">
+      <button id="asc">ascending</button> <button id="dsc">descending</button> <button id="rand">random</button>
+    </menu>
 
-      <li>
-        <a href="./d08282024/index.html">08282024</a>
-      </li>
-
-      <li>
-        <a href="./d08292024/index.html">08292024</a>
-      </li>
-      <li>
-        <a href="./d08302024/index.html">08302024</a>
-      </li>
-
-      <li>
-        <a href="./d08312024/index.html">08312024</a>
-      </li>
-
+    <ul class="sketch-list">
+      <!-- filled programatically -->
     </ul>
 
     <footer>
-      <p>adam driggers |  <a href="https://github.com/awdriggs/sketchaday/tree/main">repo</a> |  <a href="https://awd.technology">more</a></p>
+      <p>adam driggers | <a href="https://github.com/awdriggs/sketchaday/tree/main">repo</a> | <a href="https://awd.technology">more</a></p>
     </footer>
   </main>
+
+  <!-- scripts at the end -->
+  <script src="data.js"></script> 
+  <script src="script.js"></script>
 </body>
 </html>
+ 
