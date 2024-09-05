@@ -19,7 +19,7 @@ function setup() {
   h = w;
   // print(w,h);
 
-  // noStroke();
+  noStroke();
 
   print('setup');
 
