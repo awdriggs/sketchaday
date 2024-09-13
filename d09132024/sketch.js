@@ -19,9 +19,9 @@ function draw() {
   updateUniverse(); //update the universe for the next generation
 
   //if it is the first gen, start the gif
-  if(frameCount == 1){
-    saveGif('conway', 10);
-  }
+  // if(frameCount == 1){
+  //   saveGif('conway', 5);
+  // }
 }
 
 function windowResized() {
