@@ -10,6 +10,13 @@ function setup() {
   //creat the universe
   buildUniverse();
 
+   // Create a button and place it beneath the canvas.
+  let button = createButton('big bang');
+  button.position(10, 10);
+
+  // Call repaint() when the button is pressed.
+  button.mousePressed(buildUniverse);
+
 }
 
 function draw() {
