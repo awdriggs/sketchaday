@@ -17,13 +17,15 @@ function setup() {
   // Call repaint() when the button is pressed.
   button.mousePressed(buildUniverse);
 
+  frameRate(10);
+
 }
 
 function draw() {
-  background(255);
+  background(0);
 
   showUniverse(); //show the current universe
-  updateUniverse(); //update the universe for the next generation
+  universe = updateUniverse(); //update the universe for the next generation
 
   //if it is the first gen, start the gif
   // if(frameCount == 1){
@@ -66,14 +68,16 @@ function showUniverse() {
   for(let i = 0; i < universe.length; i++){
     for(let j = 0; j < universe[i].length; j++){
       fill(universe[i][j] * 255);
-      rect(i * cellSize, j * cellSize, cellSize, cellSize);
+      // rect(i * cellSize, j * cellSize, cellSize, cellSize);
+      ellipse(i * cellSize + cellSize/2, j * cellSize + cellSize/2, cellSize, cellSize);
     }
   }
 }
 
 function updateUniverse() {
-  let nextUniverse = universe.slice(); //creates a shallow copy of the universe
-  
+  // let nextUniverse = universe.slice(); //creates a shallow copy of the universe, creates the invasion pattern
+  let nextUniverse = universe.map(arr => [...arr]); //deep copy, classic conway
+
   //go to every cell
   for(let i = 0; i < universe.length; i++){
     for(let j = 0; j < universe[i].length; j++){
