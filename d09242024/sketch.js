@@ -47,7 +47,7 @@ function windowResized() {
 //rewrite as filters
 function nestedSquare(cornerX, cornerY, count, cellSize){
   let offset = cellSize/count;
-
+    
   for(let i = 0; i < count; i++){
     let move = offset * i;
     rect(cornerX + move/2, cornerY + move/2, cellSize - move);
@@ -82,7 +82,7 @@ function cornerSquare(cornerX, cornerY, count, cellSize){
 
 function diagonalRightBottom(cornerX, cornerY, count, cellSize){
   let offset = cellSize/count;
-
+  print(offset);
   //boundry
   // rect(cornerX, cornerY, cellSize, cellSize);
 
