@@ -1,12 +1,16 @@
+//TODO
+//[x] make an agent that moves through the grid
 let cells = [];
+let agent;
 
 function setup() {
   // createCanvas(400, 400);
   createCanvas(windowWidth, windowHeight);
   gridify();
+
+  agent = new Mover(cells);
   noStroke();
   // testCell = new Cell(100, 100, 100, 100);
-
 }
 
 function draw() {
@@ -15,28 +19,36 @@ function draw() {
     c.show();
   }
 
+  agent.move();
+  // agent.show();
+
 }
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   gridify();
+  agent = new Mover(cells);
 }
 
 function gridify(){
+  cells = [];
+
   let cellSize = 50;
   //set spacing between cols
   let margin = 10; //left/right/top/bottom
   //determine num cols
-  let numCols = floor(width/(cellSize + margin)); 
+  let numCols = floor(width/(cellSize + margin));
   //determine num rows
-  let numRows = floor(height/(cellSize + margin)); 
+  let numRows = floor(height/(cellSize + margin));
   print(numCols, numRows);
   //double for, made the grid
   for(let i = 0; i < numCols; i++){
     for(let j = 0; j < numRows; j++){
-      cells.push(new Cell(margin * i + i * cellSize + margin, margin * j + j * cellSize + margin, cellSize, 255));    
+      cells.push(new Cell(margin * i + i * cellSize + margin, margin * j + j * cellSize + margin, cellSize, 255));
     }
   }
+
+
 }
 
 class Cell {
@@ -48,7 +60,7 @@ class Cell {
   }
 
   show(){
-    if(this.mouseIn()){
+    if(this.mouseIn() || this.agentIn()){
       if(this.color > 0){
         // this.color--;
         this.color = 0;
@@ -71,4 +83,40 @@ class Cell {
       return false
     }
   }
+
+  agentIn(){
+    if(agent.currentCell == this){ //refering to the global agent
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
+
+
+class Mover {
+  constructor(cellArray){
+    this.env = cellArray;
+    // this.envIndex = floor(random() * cellArray.length);
+    this.envIndex = 0;
+    this.currentCell = this.env[this.envIndex]
+
+  }
+
+  show(){
+    fill(0, 0, 255);
+    ellipse(this.currentCell.x + this.currentCell.size/2, this.currentCell.y + this.currentCell.size/2, 20, 20);
+  }
+
+  move(){
+    this.envIndex++;
+
+    if(this.envIndex == this.env.length){
+      this.envIndex = 0;
+    }
+
+    print(this.envIndex);
+    this.currentCell = this.env[this.envIndex];
+  }
+}
+
