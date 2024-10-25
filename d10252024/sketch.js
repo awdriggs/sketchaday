@@ -5,15 +5,11 @@
 //[x] gaussian walk
 //[x] static noise walk
 //[ ] build 4 "columns" of cells, apply a different random function to each
-//[ ] refactor! agent needs access to each domains rows and cols
+//[x] refactor! agent needs access to each domains rows and cols
 
-// let cells = [];
-let agent;
-// let numCols, numRows;
-
-let noiseX = 0.0;
-
-let domain1, domain2;
+// let domain1, domain2;
+let columns = [];
+let noises = ["drunk", "perlin", "gaussian", "static"];
 
 function setup() {
   // createCanvas(400, 400);
@@ -21,86 +17,29 @@ function setup() {
   // gridify();
 
   noStroke();
-  // textSize(20);
-  // testCell = new Cell(100, 100, 100, 100);
-  domain1 = new Domain(50, 100, 500, 500, "static");
-  domain2 = new Domain(550, 100, 500, 500, "static");
-  // testDomain.gridify(50, 10);
 
-  // agent = new Mover(testDomain.cells, "static");
+  for(let i = 0; i < noises.length; i++){
+    columns.push(new Domain(i * width/4, 0, width/4, height, noises[i]));
+  }
+
 }
 
 function draw() {
   background(255);
 
-  stroke(0, 255, 0);
-  fill(255);
+  // stroke(0, 255, 0);
+  // fill(255);
   // rect(testDomain.x, testDomain.y, testDomain.w, testDomain.h);
 
-  //move this to be a part of domain class 
-  for(let c of domain1.cells){
-    c.show();
+  for(let c of columns){
+    c.update();
   }
-  
-  for(let c of domain2.cells){
-    c.show();
-  }
-
-
-  domain1.agent.show();
-  domain1.agent.move();
-
-  domain2.agent.show();
-  domain2.agent.move();
-  // noiseX += 1; //for the perlin walk, move somewher else?
-
-  // fill(0, 255, 0);
-  // text(agent.walk, 20, 40);
 }
 
 function windowResized() {
   // resizeCanvas(windowWidth, windowHeight);
-  // gridify();
-  // agent = new Mover(cells);
+  // need to reset each domain here, gridify?
 }
-
-function keyPressed() {
-  // print(key == "ArrowLeft");
-
-  // let dir;
-
-  // if(key == "ArrowLeft"){
-  //   agent.walk = "perlin"
-
-  // } else if(key == "ArrowRight"){
-  //   agent.walk = "drunk"
-  // } else if(key == "ArrowDown"){
-  //   agent.walk = "gaussian"
-  // } else if(key == "ArrowUp"){
-  //   agent.walk = "static"
-  // }
-
-  // agent.step(dir);
-}
-
-//function gridify(){
-//  cells = [];
-
-//  let cellsize = 50;
-//  //set spacing between cols
-//  let margin = 10; //left/right/top/bottom
-//  //determine num cols
-//  numcols = floor(width/(cellsize + margin));
-//  //determine num rows
-//  numrows = floor(height/(cellsize + margin));
-//  print(numcols, numrows);
-//  //double for, made the grid
-//  for(let i = 0; i < numcols; i++){
-//    for(let j = 0; j < numrows; j++){
-//      cells.push(new cell(margin * i + i * cellsize + margin, margin * j + j * cellsize + margin, cellsize, 255));
-//    }
-//  }
-//}
 
 class Domain {
   constructor(x, y, w, h, noiseClass){
@@ -109,26 +48,22 @@ class Domain {
     this.w = w;
     this.h = h;
     this.noise = noiseClass;
-    this.gridify(50, 10); //sets this.cells
-    this.agent = new Mover(this, noiseClass);  
+    this.gridify(30, 10); //sets this.cells, parametrize this?
+    this.agent = new Mover(this.cells, this.numCols, this.numRows, noiseClass);
   }
-  
-  //refactor so that domain controls all! example this.cells[0].agentIn(this.agent)
-  //agent.step(this.numRows, this.numCols);
-  //this will fix the headache of passing the parent around
 
   update(){
-    
-    //call move with the cells array
-    //
+    for(let c of this.cells){
+      c.show(this.agent); //pass the agent to cell can sense its location
+    }
 
-    //display all the cells
+    // this.agent.show(); //debug where the agent is
+    this.agent.move();
+
   }
 
   gridify(cellSize, margin){
     this.cells = []; //empty and refresh
-   
-
     // let cellSize = 50; //change these to globals?
 
     //set spacing between cols
@@ -145,9 +80,6 @@ class Domain {
       }
     }
   }
-
-
-
 }
 
 class Cell {
@@ -157,11 +89,10 @@ class Cell {
     this.y = y;
     this.size = size;
     this.color = c;
-    // this.agent = a;
   }
 
-  show(){
-    if(this.mouseIn() || this.agentIn()){
+  show(agent){
+    if(this.mouseIn() || this.agentIn(agent)){
       if(this.color > 0){
         // this.color--;
         this.color = 0;
@@ -195,15 +126,15 @@ class Cell {
   }
 }
 
-
 class Mover {
-  constructor(parent, noiseFunc){
-    this.parent = parent;
-    this.env = parent.cells;
-    // this.envIndex = floor(random() * cellArray.length);
-    this.envIndex = 0;
-    this.currentCell = this.env[this.envIndex];
+  constructor(cellArray, nc, nr, noiseFunc){
+    this.env = cellArray; //the agents environment
+    this.numCols = nc;
+    this.numRows = nr;
+    this.envIndex = 0; //where the agent is in its environment
+    this.currentCell = this.env[this.envIndex]; //the cell object where the agent is 
     this.walk = noiseFunc;
+    this.noiseX = 0.0; //used for perlin only
   }
 
   show(){
@@ -211,6 +142,7 @@ class Mover {
     ellipse(this.currentCell.x + this.currentCell.size/2, this.currentCell.y + this.currentCell.size/2, 20, 20);
   }
 
+  //mostly for testing but fun 
   cycle(){ //this cycles through the environment array
     this.envIndex++;
 
@@ -222,6 +154,7 @@ class Mover {
     this.currentCell = this.env[this.envIndex];
   }
 
+  //determine how to move, calls the step function 
   move(){
     let dir;
     if(this.walk == "drunk"){
@@ -230,8 +163,9 @@ class Mover {
       this.step(dir);
     } else if(this.walk == "perlin"){
       //perlin walk
-      dir = floor(noise(noiseX) * 4);
+      dir = floor(noise(this.noiseX) * 4);
       this.step(dir);
+      this.noiseX += 1; //why so high?
     } else if(this.walk == "gaussian"){
       //gaussian walk
       dir = floor(randomGaussian(2));
@@ -243,22 +177,25 @@ class Mover {
   }
 
   step(d){
+    let numRows = this.numRows; //lazy don't want to refactor this whole func
+    let numCols = this.numCols;
+
     if(d == 2){
       this.envIndex++;
       //go back to row 0 by subtracting the number of rows
-      if(agent.envIndex % numRows == 0){
+      if(this.envIndex % numRows == 0){
         this.envIndex -= numRows;
       }
     } else if(d == 3){
       this.envIndex--;
       //go to the last row
-      if(agent.envIndex % numRows == numRows - 1 || this.envIndex ==  -1){ //catch for if envIndex is -1
+      if(this.envIndex % numRows == numRows - 1 || this.envIndex ==  -1){ //catch for if envIndex is -1
         this.envIndex += numRows;
       }
     } else if(d == 1){
       this.envIndex += numRows; //shift by the number of rows
       //if you are at the last column, to to subtract the array length to get to next column in the same row
-      if(floor(agent.envIndex/numRows) == numCols){
+      if(floor(this.envIndex/numRows) == numCols){
         this.envIndex = this.envIndex - this.env.length
       }
       //get row --> agent.envIndex % numCols
