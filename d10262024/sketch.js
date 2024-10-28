@@ -14,8 +14,6 @@ function setup() {
   });
 
   capture.hide();
-
-
 }
 
 function draw() {

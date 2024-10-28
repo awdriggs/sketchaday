@@ -33,9 +33,9 @@ function setup() {
 }
 
 function draw() {
-  if(frameCount == 1){
-    saveGif("fracture", 10);
-  }
+  // if(frameCount == 1){
+  //   saveGif("fracture", 10);
+  // }
 
   background(255);
 
