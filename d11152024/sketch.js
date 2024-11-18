@@ -61,9 +61,7 @@ function reset(){
   //wave setup
   bumps = 6;
   spread = barHeight/bumps;
-
 }
-
 
 function wave(x, y, dir) {
   //testing!
@@ -90,8 +88,5 @@ function wave(x, y, dir) {
   vertex(x + 20 * dir, y + barHeight);
   vertex(x + 20 * dir, y);
 
-
   endShape();
-
-
 }
