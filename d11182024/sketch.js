@@ -1,66 +1,52 @@
-//img mask vars
-let mask, mask1, mask2, bgImage, img, flip;
-
-//bg drawing vars
 let numRows, numCols, barHeight, cellWidth, flipFlop;
 let bumps, spread;
-
-
-// Load the image.
-function preload() {
-  // bgImage = loadImage('bg.jpg');
-}
 
 function setup() {
   // createCanvas(400, 400);
   createCanvas(windowWidth, windowHeight);
   noStroke();
-  reset();
+  reset(); //sets the vars for drawing the background
 
-  drawBg();
-  makeMasks();
-  // bg.resize(width, height);
-  img = bgImage.get();
-  // img.resize(width, height)
-  // makeMasks();
-  mask = mask1;
-  // noLoop();
-  flip = 0;
+  drawBg(); //draws the background design
+  makeMasks(); //creates the mask graphics
+  img = bgImage.get(); //set the image to the background image, keeping the original pure
+  mask = mask1; //set the mask to start with
+
+  flip = 0; //changes the mask
   noStroke();
   // noLoop();
 }
 
 function draw() {
-  // drawBg();
-  //background(255);
   img = bgImage.get(); //resets the image
 
-  ////draw original image
+  //draw original image
   image(img, 0, 0);
 
-  //mask half the image
+  //mask part of the image
   img.mask(mask);
-  ////invert the image
+  //invert the unmasked part of the image
   img.filter(INVERT);
-  ////draw the rest of the image
+  //draw the inverted portion 
   image(img,0,0);
 
   if(frameCount % 30 == 0){
     print('flip');
     flipFlop *= -1;
-    drawBg();
-    changeMask();
+    drawBg(); //will flip the direction of the bg design, reset bgImage
+    changeMask(); //will flip to the next map
   } 
 }
 
 function changeMask() {
+  //cycle between two masks
   if(flip % 2 == 0){
     mask = mask1;
   } else {
     mask = mask2;
   }
 
-  flip++;
+  flip++; //change flip for next time
 }
 
 function windowResized() {
@@ -69,16 +55,12 @@ function windowResized() {
 
 // creates two images mask
 function makeMasks(){
-  //top mask
+  //using create graphics creates a off screen drawing context
   pg = createGraphics(width, height);
-  //checkerboard
-
-  //numCols
   pg.rect(0, 0, width/2, height/2);
   pg.rect(width/2, height/2, width/2, height/2);
-  mask1 = pg.get();
+  mask1 = pg.get(); //set the mask to the pixel version of the graphic context
 
-  //bottom mask
   pg = createGraphics(width, height); //reset graphics
   pg.rect(width/2, 0, width/2, height/2);
   pg.rect(0, height/2, width/2, height/2);
@@ -86,6 +68,7 @@ function makeMasks(){
 }
 
 function drawBg(){
+  //create a new drawing context for the background image
   let bg = createGraphics(width, height);
 
   bg.background(255);
@@ -94,11 +77,10 @@ function drawBg(){
     for(let j = 0; j < numCols; j++){
       let offset = 1 * flipFlop;
 
-      if(i%2==0){
+      if(i%2==0){ //determines the direction the squiggles are pointing
         offset = -1 * flipFlop;
       }
 
-      // stroke(0);
       bg.noStroke();
       bg.fill(0);
       let x = j * cellWidth + cellWidth/2;
@@ -130,11 +112,7 @@ function drawBg(){
 
       bg.endShape();
 
-      bgImage = bg.get();
-
-
-      // stroke("red");
-      // line(j * cellWidth, i * barHeight, j * cellWidth, i * barHeight + barHeight);
+      bgImage = bg.get(); //set bgImage to the pixel value of the drawing conext 
     }
   }
 }
@@ -157,13 +135,3 @@ function reset(){
   spread = barHeight/bumps;
   print(numCols);
 }
-
-function wave(x, y, dir) {
-  //testing!
-  // beginShape()
-  // vertex(x,y+20); //corner of of the wave
-  // vertex(x -  10 * dir, y+20);
-  // endShape();
-}
-
-
