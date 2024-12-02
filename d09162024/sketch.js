@@ -39,8 +39,6 @@ function setup() {
 
     //create the universe
   buildUniverse();
-
-
 }
 
 function draw() {
