@@ -82,6 +82,11 @@ function draw() {
     c.draw();
   }
 }
+ 
+function mousePressed() {
+  saveCanvas('d12092024', 'jpg');
+}
+ 
 
 // Declaration
 class WavePattern {

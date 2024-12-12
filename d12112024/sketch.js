@@ -54,6 +54,10 @@ function draw() {
   }
 }
 
+function mousePressed() {
+  saveCanvas('d12112024', 'jpg');
+}
+
 // Declaration
 class WavePattern {
   constructor(ox, oy, w, h, numTris, flip, baseColor) {
