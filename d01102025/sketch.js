@@ -30,12 +30,13 @@ function setup() {
 
 
 function draw() {
-  background(255, 100, 100);
+  background(255);
 
     //load
   redMask = generateMask(redChannel);
  // Apply the mask.
   // redImage.mask(redMask);
+  tint("red");
   image(redMask, 0, 0);
   // Display the image.
   // image(redImage, 0, 0);
