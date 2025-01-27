@@ -9,7 +9,7 @@ function setup() {
   c2 = "red";
   c3 = "#1D3461";
   c4 = "#26C485";
-  c5 = "#26C485";
+  c5 = "#F39237";
   c6 = "#5386E4";
   noStroke();
 
@@ -33,7 +33,7 @@ function draw() {
   tiledFill(100, 500, 200, 200, 5, 4, c3, c4);
   tiledFill(500, 500, 200, 200, 5, 4, c3, c4);
 
-  tiledFill(300, 300, 200, 200, 5, 4, c5, c6);
+  tiledFill(300, 300, 200, 200, 10, 2, c5, c6);
   //swap colors for animation
   if(frameCount % 100 == 0){
     let tempColor = c1;
