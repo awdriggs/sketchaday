@@ -17,13 +17,13 @@ function setup() {
     if(h == 0){ //top row
       y = 0;
       ydir1 = 0;
-      ydir2 = 0;
+      // ydir2 = 0;
       yo = 0;
     } else if(h == numRows - 1){
-      y = height;
-      ydir1 = 0;
+      y = height - rowHeight;
+      // ydir1 = 0;
       ydir2 = 0;
-      yo = height;
+      yo = height - rowHeight;
     } else {
       y = h * rowHeight;
       yo = h * rowHeight;
