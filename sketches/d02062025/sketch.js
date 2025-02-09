@@ -87,3 +87,11 @@ function randomColor(){
 
   return color(r, g, b);
 }
+
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', 5);
+  } else if(key == "p"){
+    saveCanvas('thumb', "jpg");
+  }
+}

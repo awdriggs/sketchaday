@@ -3,10 +3,10 @@ let numCols = 20;
 
 function setup() {
   createCanvas(800, 800);
-  
+
   let rectSize = width / (numCols - 1);
 
-   
+
   for(let i = 0; i < numCols; i++){
     if(i == 0){ //first
       row.push([0, 0]);
@@ -16,14 +16,14 @@ function setup() {
     } else { //middle cols
       let offset1 = random(-rectSize/2, rectSize/2);
       let offset2 = random(-rectSize/2, rectSize/2);
-      row.push([i * rectSize + offset1, i * rectSize + offset2]);  
+      row.push([i * rectSize + offset1, i * rectSize + offset2]);
     }
   }
 }
 
 function draw() {
   background(255);
-  
+
   for(let l of row){
     line(l[0], 0, l[1], height);
   }
@@ -38,4 +38,11 @@ function randomColor(){
   return color(r, g, b);
 }
 
-      
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', 5);
+  } else if(key == "p"){
+    saveCanvas('thumb', "jpg");
+  }
+}
+

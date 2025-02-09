@@ -79,3 +79,12 @@ class Poly {
     endShape();
   }
 }
+
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', 5);
+  } else if(key == "p"){
+    saveCanvas('thumb', "jpg");
+  }
+}
+

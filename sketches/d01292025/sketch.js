@@ -101,3 +101,12 @@ function mousePressed(){
 //#dc4c30 red
 //#5e7c8d
 //#2c2920
+
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', 5);
+  } else if(key == "p"){
+    saveCanvas('thumb', "jpg");
+  }
+}
+

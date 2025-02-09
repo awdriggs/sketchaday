@@ -111,3 +111,10 @@ class Poly {
 //     fill(this.color);
 //     // }
 
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', 5);
+  } else if(key == "p"){
+    saveCanvas('thumb', "jpg");
+  }
+}

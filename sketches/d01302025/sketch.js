@@ -89,3 +89,11 @@ class Section {
   }
 }
 
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb-lg', 5);
+  } else if(key == "p"){
+    saveCanvas('thumb', "jpg");
+  }
+}
+

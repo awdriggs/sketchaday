@@ -10,7 +10,7 @@ title: Sketch Gallery
   {% for sketch in site.data.sketches | sort: "date" | reverse %}
   <div class="gallery-item">
     <a href="{{ sketch.path }}index.html">
-      <img src="public/thumbnails/{{ sketch.thumbnail }}" alt="{{ sketch.title }}">
+      <img src="{{ sketch.path }}{{ sketch.thumbnail }}" alt="{{ sketch.title }}">
       <p>{{ sketch.title }}</p>
     </a>
   </div>

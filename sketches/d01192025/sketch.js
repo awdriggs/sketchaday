@@ -5,7 +5,7 @@ let sqSize;
 
 
 function setup() {
-  createCanvas(800, 800);
+  createCanvas(600, 400);
 
   let numColumns = 27;
   let step = PI / numColumns;
@@ -44,5 +44,13 @@ function draw() {
 
   // print(x);
 
+}
+
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', 5);
+  } else if(key == "p"){
+    saveCanvas('thumb', "jpg");
+  }
 }
 
