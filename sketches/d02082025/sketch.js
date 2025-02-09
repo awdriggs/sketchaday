@@ -1,7 +1,7 @@
 let dir = -1;
 let h = 12;
 function setup() {
-  createCanvas(800, 800);
+  createCanvas(600, 600);
   // createCanvas(windowWidth, windowHeight);
   textSize(60);
   textAlign(CENTER, CENTER);
