@@ -3,7 +3,7 @@ let time = 12;
 const TILT = 0.40910517666747087;
 
 let lat, long;
-let hour = 18;
+let hour = 0;
 let declination, hourAngle;
 
 function setup(){
@@ -24,6 +24,7 @@ function draw(){
     stroke(0);
     // line(0, height * 0.8, width, height * 0.8);
 
+    for(let hour = 0; hour < 24; hour++){
     let pos = calcPosition(day, hour);
 
     // console.log(day, pos.x);
@@ -31,9 +32,10 @@ function draw(){
 
     ellipse(pos.x, pos.y, 1, 1);
 
+    }
+
     if(frameCount % 1 == 0){
 
-      console.log(day, pos.x);
       day++;
 
       if(day > 365){

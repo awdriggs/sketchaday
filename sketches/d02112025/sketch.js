@@ -1,9 +1,9 @@
 let day = 0;
-let time = 12;
+let hour = 0;
+// let time = 12;
 const TILT = 0.40910517666747087;
 
 let lat, long;
-let hour = 18;
 let declination, hourAngle;
 
 function setup(){
@@ -31,15 +31,19 @@ function draw(){
 
     ellipse(pos.x, pos.y, 1, 1);
 
-    if(frameCount % 1 == 0){
+    
+    hour += 1/6;
 
-      console.log(day, pos.x);
+    //increase the day every 24 hours 
+    if(hour > 24){
+      hour = 0;
       day++;
-
-      if(day > 365){
-        // background(255);
-        day = 0;
-      }
+    }
+  
+    //reset to jan 1
+    if(day > 365){
+      // background(255);
+      day = 0;
     }
   }
 }
@@ -58,8 +62,8 @@ function info(){
   noStroke();
   rect(0, 0, width, 20);
   fill(0);
-  text(day, 10, 10);
-  text(`long; ${long} lat: ${lat}`, 40, 10);
+  text(day + " "  + hour, 10, 10);
+  text(`long; ${long} lat: ${lat}`, 10, 20);
 }
 
 function calcPosition(day, hour){
@@ -89,22 +93,22 @@ function calcX(){
     sin(radians(lat)) * sin(declination) +
     cos(radians(lat)) * cos(declination) * cos(hourAngle)
   );
-  
+
   // Then compute the azimuth using the correct formula
   let cosAz = (sin(declination) - sin(radians(lat)) * sin(elevation)) /
-              (cos(radians(lat)) * cos(elevation));
-  
+    (cos(radians(lat)) * cos(elevation));
+
   // Due to precision issues, ensure cosAz is in [-1, 1]
   cosAz = constrain(cosAz, -1, 1);
-  
+
   let azimuth = acos(cosAz);
-  
+
   // Adjust the azimuth based on the sign of sin(hourAngle)
   // (Note: some sources adjust based on sin(azimuth) or use atan2 instead)
   if (sin(hourAngle) > 0) {
     azimuth = TWO_PI - azimuth;
   }
-  
+
   return map(azimuth, 0, TWO_PI, 0, width); // Map azimuth to screen width
 }
 
