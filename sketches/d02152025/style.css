@@ -1,0 +1,35 @@
+body {
+  margin: 0px;
+  
+  /* font shit */
+  font-family: "IBM Plex Sans", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100
+}
+
+#info {
+  display: flex;
+  position: fixed;
+  justify-content: space-between;
+  width: 100%;
+  /* background-color: pink; */
+  padding: 20px;
+  bottom: 5px;
+
+  align-items: center;
+}
+
+
+header {
+  position: fixed;
+  left: 10px;
+  top: 10px;
+}
+
+h1 {
+  font-size: 3rem;
+  margin: 0;
+}
