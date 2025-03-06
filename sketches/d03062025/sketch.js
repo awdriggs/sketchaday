@@ -37,10 +37,10 @@ function draw() {
     c.draw();
   }
 
-  if(frameCount == 1){
-    print("start");
-    saveGif('thumb', 11);
-  }
+  // if(frameCount == 1){
+  //   print("start");
+  //   saveGif('thumb', 11);
+  // }
   if(frameCount % 1 == 0){
     drawPattern(); 
     pCount++;
