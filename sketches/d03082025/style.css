@@ -1,0 +1,17 @@
+body {
+  margin: 0px;
+}
+
+#controls {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  font-family: arial;
+  background-color: rgba(200, 200, 200, 0.5);
+  padding: 10px;
+   
+
+  h2 {
+    margin: 0;
+  }
+}
