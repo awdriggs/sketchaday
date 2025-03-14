@@ -58,3 +58,13 @@ function draw() {
 function createBar(){
 
 }
+
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3,7)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "png");
+  }
+}
+
+

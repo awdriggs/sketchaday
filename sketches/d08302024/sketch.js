@@ -2,7 +2,7 @@ let bar, slider;
 let oldSliderValue;
 
 function setup() {
-  // createCanvas(400, 400);
+  // createCanvas(300, 300);
   createCanvas(windowWidth, windowHeight);
   // Create a slider and place it at the top of the canvas.
   slider = createSlider(1, width/2, width/2 * 0.75);
@@ -56,3 +56,12 @@ function createBar(){
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
+
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3,7)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "png");
+  }
+}
+

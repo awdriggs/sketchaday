@@ -6,7 +6,7 @@ let fillColor;
 let cellSize = 100;
 
 function setup() {
-  // createCanvas(400, 400);
+  // createCanvas(300, 300);
   createCanvas(windowWidth, windowHeight);
   // noLoop();
   strokeColor = 0;
@@ -275,3 +275,12 @@ function parabolaLeftTop(cornerX, cornerY, count, cellSize){
     line(cornerX, cornerY + move, cornerX + cellSize - move, cornerY);
   }
 }
+
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3,7)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "png");
+  }
+}
+

@@ -2,7 +2,7 @@
 //moving towards this...https://www.stedelijk.nl/nl/collectie/35745-kitty-van-der-mijll-dekker-reliefkleed?page=2
 let cellSize = 100;
 function setup() {
-  // createCanvas(400, 400);
+  // createCanvas(300, 300);
   createCanvas(windowWidth, windowHeight);
   // noLoop();
 }
@@ -179,3 +179,12 @@ function parabolaLeftTop(cornerX, cornerY, count, cellSize){
     line(cornerX, cornerY + move, cornerX + cellSize - move, cornerY);
   }
 }
+
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3,7)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "png");
+  }
+}
+

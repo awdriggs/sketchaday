@@ -4,7 +4,7 @@ let universe = [];
 let cellSize = 10;
 
 function setup() {
-  // createCanvas(400, 400);
+  // createCanvas(300, 300);
   createCanvas(windowWidth, windowHeight);
   noStroke();
   //creat the universe
@@ -122,5 +122,13 @@ function getNextGenOfCell(x, y) {
   }
 
   return thisCell;
+}
+
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3,7)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "png");
+  }
 }
 

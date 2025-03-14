@@ -4,7 +4,7 @@ let universe = [];
 let cellSize = 10;
 
 function setup() {
-  // createCanvas(400, 400);
+  // createCanvas(300, 300);
   createCanvas(windowWidth, windowHeight);
 
   //creat the universe
@@ -57,3 +57,12 @@ function showUniverse() {
     }
   }
 }
+
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3,7)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "png");
+  }
+}
+

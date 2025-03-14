@@ -13,7 +13,7 @@ let setColorButton;
 let w, h;
 
 function setup() {
-  // createCanvas(400, 400);
+  // createCanvas(300, 300);
   createCanvas(windowWidth, windowHeight);
 
   numCols = 25;
@@ -165,3 +165,12 @@ function setColors() {
   color1 = prompt("Color 1! Enter an HTML Color Name");
   color2 = prompt("Color 2! Enter an HTML Color Name");
 }
+
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3,7)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "png");
+  }
+}
+

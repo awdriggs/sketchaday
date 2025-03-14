@@ -5,7 +5,7 @@ let cellSize = 10;
 let looping = true;
 
 function setup() {
-  // createCanvas(400, 400);
+  // createCanvas(800, 800);
   createCanvas(windowWidth, windowHeight);
   noStroke();
 
@@ -167,5 +167,13 @@ function getNextGenOfCell(x, y) {
   }
 
   return thisCell;
+}
+
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3,7)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "png");
+  }
 }
 

@@ -6,7 +6,7 @@ let rectWidth;
 let rectHeight;
 
 function setup() {
-  // createCanvas(400, 400);
+  // createCanvas(300, 300);
   createCanvas(windowWidth, windowHeight);
 
   reSize();
@@ -64,3 +64,12 @@ function reSize(){
   rectWidth = cellSize;
   rectHeight = rectWidth/3;
 }
+
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3,7)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "png");
+  }
+}
+

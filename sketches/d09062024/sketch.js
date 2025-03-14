@@ -11,7 +11,7 @@ let rightBoundrySlider, bottomBoundrySlider;
 let w, h;
 
 function setup() {
-  // createCanvas(400, 400);
+  // createCanvas(300, 300);
   createCanvas(windowWidth, windowHeight);
 
   numCols = 25;
@@ -127,6 +127,14 @@ function squareCheck(startX, startY, sectionW, sectionH, c){
       rect(i * w + startX, j * h + startY, w, h);
       toggle++;
     }
+  }
+}
+
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3,7)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "png");
   }
 }
 

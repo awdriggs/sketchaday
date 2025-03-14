@@ -3,7 +3,7 @@ let count = 1;
 let bar1, bar2;
 
 function setup() {
-  // createCanvas(400, 400);
+  // createCanvas(300, 300);
   createCanvas(windowWidth, windowHeight);
   noStroke();
   w1 = 1;
@@ -67,3 +67,12 @@ function createBar(barW, barC){
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
+
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', 5);
+  } else if(key == "p"){
+    saveCanvas('thumb', "png");
+  }
+}
+
