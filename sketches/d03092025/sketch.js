@@ -35,7 +35,7 @@ function draw() {
 
 }
 
-function mouseClicked(){
+function mousePressed(){
 
   for(let i = 0; i < cells.length; i++){
     let c = cells[i];
@@ -64,23 +64,13 @@ function mouseReleased(){
   }
 }
 
-// function mouseReleased(){
-//   let patternOutput = document.querySelector("#pattern");
 
-//   for(let c of cells){
-//   patternOutput.innerHTML = cells;
-// }
 
 function animatedPattern(){
 
   //cycle through the pattern and draw it to the canvas
   //no stroke
 }
-
-
-// function windowResized() {
-//   resizeCanvas(windowWidth, windowHeight);
-// }
 
 function keyPressed(){
   if(key == "g"){
@@ -110,16 +100,22 @@ class Cell {
   }
 
   clicked(mx, my){
-    let clicked = false;
+    // let clicked = false;
 
     if(mx > this.x && mx < this.x + this.size && my > this.y && my < this.y + this.size){
       print(this.id);
-      if(this.state){
+      if(this.state == 1){
         this.state = 0;
       } else {
         this.state = 1;
       }
     }
 
+  }
+
+  draggedOver(mx, my){
+    if(dragging == true){
+      
+    }
   }
 }
