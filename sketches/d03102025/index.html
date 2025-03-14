@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.js"></script>
+    <!-- no internet? use the local version of p5 -->
+    <!-- <script src="../p5.js"></script> --> 
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/addons/p5.sound.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8" />
+
+  </head>
+  <body>
+    <div id="ui">
+      <button  onclick="toggleMode()">draw</button>
+      <button  onclick="toggleMode()">erase</button>
+      <button onclick="resetCells()">clear</button> 
+      <button onclick="drawingPattern=false">repeat pattern</button>
+    </div>
+    <main>
+    </main>
+    <pre id="pattern">
+    </pre>
+    <script src="sketch.js"></script>
+  </body>
+</html>
+
