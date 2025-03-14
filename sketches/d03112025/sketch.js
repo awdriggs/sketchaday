@@ -9,17 +9,13 @@ function setup() {
   
   hoffset = width/count;
   
-  noLoop();
 }
 
 function draw() {
   background(255);
   
   for(let i = 0; i < count; i++){
-    
-    let scaled = map(i, 0, count, 0, TWO_PI) 
-    let a = cos(scaled);
-    strokeWeight(map(a, -1, 1, 0.1, 10));
+    strokeWeight(map(i, 0, count, 0.1, 10));
     line(i * hoffset, 0, i * hoffset, height);
   }
 }

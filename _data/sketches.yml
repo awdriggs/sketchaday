@@ -1,4 +1,8 @@
 
+- title: d03142025
+  date: '2025-03-14'
+  thumbnail: thumb.jpg
+  path: sketches/d03142025/
 - title: d03132025
   date: '2025-03-13'
   thumbnail: thumb.jpg
@@ -6,7 +10,11 @@
 - title: d03122025
   date: '2025-03-12'
   thumbnail: thumb.jpg
-  path: sketches/d03132025/
+  path: sketches/d03122025/
+- title: d03112025
+  date: '2025-03-11'
+  thumbnail: thumb.jpg
+  path: sketches/d03112025/
 - title: d03092025
   date: '2025-03-09'
   thumbnail: thumb.jpg
