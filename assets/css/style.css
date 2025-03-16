@@ -59,18 +59,38 @@ main{
   .gallery {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 10px;
+    /* gap: 10px; */
   }
   .gallery-item {
+    position: relative;
     background: white;
     /* border-radius: 8px; */
     overflow: hidden;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
     transition: transform 0.2s ease-in-out;
+
+
+
+    .sketch-title {
+      display: none;
+      font-size: 1.8rem;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -70%);
+      color: blue;
+    }
   }
   .gallery-item:hover {
-    transform: scale(1.05);
+    /* transform: scale(1.05); */
+    .sketch-title {
+      display: block;
+    }
+
+    img {
+      opacity: 0.5;
+    }
   }
   .gallery-item img {
     width: 100%;
