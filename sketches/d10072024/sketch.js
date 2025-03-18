@@ -3,7 +3,7 @@ let cells = [];
 let newCells = [];
 
 function setup() {
-  createCanvas(800, 800);
+  createCanvas(600, 600);
   // createCanvas(1000, 600); //multiples of 200 only
 
 
@@ -26,6 +26,15 @@ function draw() {
 
   // fracture();
 }
+
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3, 7)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "png");
+  }
+}
+
 
 //build cells
 function buildCells(){

@@ -66,6 +66,14 @@ function buildCells(clear){
 
 }
 
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3, 7)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "png");
+  }
+}
+
 function getRandomPattern(){
   let randomIndex = floor(random(0, patterns.length));
   return patterns[randomIndex];

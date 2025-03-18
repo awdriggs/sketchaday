@@ -50,6 +50,15 @@ function mousePressed(){
   // cull(); //turn on off to remove the old cells
 }
 
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3, 7)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "png");
+  }
+}
+
+
 //this will delete all dead cells from the array 
 function cull(){
   let aliveCells = [];

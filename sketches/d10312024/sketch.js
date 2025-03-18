@@ -46,6 +46,15 @@ function draw(){
   }
 }
 
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', 10);
+  } else if(key == "p"){
+    saveCanvas('thumb', "jpg");
+  }
+}
+
+
 //function mousePressed(){
 //  for(let c of cells){
 //    if(c.alive && c.clicked() && c.h > 25 && c.w > 25){

@@ -25,6 +25,15 @@ function draw() {
   }
 }
 
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3, 7)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "png");
+  }
+}
+
+
 function findClosestCell(){
   let closestCell;
   let closestDistance = 10000; //start with a large number, so first match becomes the closest

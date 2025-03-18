@@ -34,6 +34,15 @@ function draw() {
   fracture();
 }
 
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3, 7)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "png");
+  }
+}
+
+
 //build cells
 function buildCells(clear){
   let containerWidth = 600;
