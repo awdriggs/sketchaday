@@ -49,9 +49,9 @@ function shiftStrokes(){
 
 function keyPressed(){
   if(key == "g"){
-    saveGif('thumb', 5);
+    saveGif('thumb', floor(random(3, 7)));
   } else if(key == "p"){
-    saveCanvas('thumb', "jpg");
+    saveCanvas('thumb', "png");
   }
 }
 

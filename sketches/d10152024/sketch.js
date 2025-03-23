@@ -1,7 +1,7 @@
 let cells = [];
 
 function setup() {
-  // createCanvas(400, 400);
+  // createCanvas(800, 800);
   createCanvas(windowWidth, windowHeight);
   gridify();
   noStroke();
@@ -15,6 +15,14 @@ function draw() {
     c.show();
   }
 
+}
+
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3, 7)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "jpg");
+  }
 }
 
 function windowResized() {
