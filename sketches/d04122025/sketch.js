@@ -16,7 +16,7 @@ function setup() {
       let x = j * w;
       let y = i * h;
 
-      let o = "horiziontal";
+      let o = random() > 0.5 ? "horiziontal" : "vertical";
 
       let c = random(1, 10);
 
@@ -52,7 +52,7 @@ class Cell {
     this.x = x;
     this.y = y;
     this.width = width;
-    this.heigt = height;
+    this.height = height;
     this.orientation = orientation;
     this.count = count;
     this.space = this.width/this.count;
@@ -65,6 +65,7 @@ class Cell {
       if(this.orientation == "horiziontal"){
         rect(this.x, this.y + i * this.space, this.width, this.size);
       } else {
+        
         rect(this.x + i * this.space, this.y, this.size, this.height);
       }
     }
