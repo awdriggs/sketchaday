@@ -1,6 +1,7 @@
 let surface1, surface2;
 let numCols, numRows;
 let cellSize;
+let graphic;
 
 function setup() {
   createCanvas(800, 800);
@@ -12,6 +13,8 @@ function setup() {
   numRows = 25;
   cellWidth = width/numCols;
   cellHeight = height/numRows;
+
+  graphic = createGraphics(width, height);
 }
 
 function draw() {
@@ -75,7 +78,7 @@ function generateGraphics(){
 }
 
 function generate(){
-  graphic = createGraphics(width, height);
+  graphic.background(255)
   let numCols = 10;
   let numRows = 10;
   let cellSize = width/numCols;
@@ -85,7 +88,8 @@ function generate(){
     for(let j = 0; j < numCols; j++){
       let x = j * cellSize + cellSize/2;
       let y = i * cellSize + cellSize/2;
-      ellipse(x, y, cellSize, cellSize);
+      graphic.fill(0);
+      graphic.ellipse(x, y, cellSize, cellSize);
     }
   }
 

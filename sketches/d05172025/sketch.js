@@ -16,6 +16,9 @@ function setup() {
   numRows = 10;
   cellWidth = width/numCols;
   cellHeight = height/numRows;
+
+  horiziontalWaves = createGraphics(width, height);
+  verticalWaves = createGraphics(width, height);
 }
 
 function draw() {
@@ -62,7 +65,7 @@ function keyPressed(){
 }
 
 function generate(){
-  horiziontalWaves = createGraphics(width, height);
+  horiziontalWaves.background(255);
   for(let h = 0; h < numLines + 2; h++){
     for(let i = 0; i < height; i++){
       let x = sin(i/freq) * (amp * cos(ampStep)) + (h * yOffset);
@@ -71,7 +74,7 @@ function generate(){
     }
   }
 
-  verticalWaves = createGraphics(width, height);
+  verticalWaves.background(255);
   for(let h = 0; h < numLines + 2; h++){
     // let waveDir = h % 2 == 0 ? -1 : 1;
     for(let i = 0; i < width; i++){
