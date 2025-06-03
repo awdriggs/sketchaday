@@ -51,7 +51,7 @@ function draw() {
   pop();
 
   let rotation = abs(angle % TWO_PI);
-  if(rotation > 0.54 && rotation < 0.57){
+  if(rotation > 0.53 && rotation < 0.57){
     textSize(40);
     text("✅", 40, 40);
   }
