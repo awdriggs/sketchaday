@@ -65,6 +65,7 @@ function setup() {
     // {func: checkerboard, params: { numRows: 4, numCols: 4, colors: ['black', 'purple'], dir: -1}} //7
   ]
 
+  // createCanvas(800, 800); 
   createCanvas(680, 960); //p-o screen size
   //gcf is 40 fyi, producing a 17 x 24 grid
 
@@ -117,6 +118,15 @@ function draw() {
 
 function mouseClicked(){
   saveCanvas("quilt", "png");
+}
+
+
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3, 8)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "jpg");
+  }
 }
 
 class Block {

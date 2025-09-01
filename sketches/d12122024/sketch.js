@@ -60,10 +60,18 @@ function draw() {
   }
 }
 
-
-function mousePressed() {
-  saveCanvas('d11122024', 'jpg');
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3, 8)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "jpg");
+  }
 }
+
+
+// function mousePressed() {
+//   saveCanvas('d11122024', 'jpg');
+// }
 
 // Declaration
 class WavePattern {

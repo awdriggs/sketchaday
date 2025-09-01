@@ -57,6 +57,7 @@ function setup() {
   ]
 
   createCanvas(680, 960); //p-o screen size
+  // createCanvas(300, 300); //p-o screen size
   //gcf is 40 fyi, producing a 17 x 24 grid
 
   // noStroke();

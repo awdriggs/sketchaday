@@ -33,6 +33,16 @@ function draw() {
 
 }
 
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3, 8)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "jpg");
+  }
+}
+
+
+
 
 
 function windowResized() {

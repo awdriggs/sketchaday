@@ -13,7 +13,7 @@ let redChannel, greenChannel, blueChannel;
 let redImage, greenImage, blueImage;
 
 function setup() {
-  createCanvas(600, 600);
+  createCanvas(800, 800);
   // numBlobsPerChannel = (width * height) / ((width * height)/10); 
   
   numBlobsPerChannel = 10; 
@@ -60,6 +60,16 @@ function draw() {
 
 }
 
+// function keyPressed(){
+//   console.log("pressy");
+//   if(key == "g"){
+//     saveGif('thumb', floor(random(3, 8)));
+//   } else if(key == "p"){
+//     saveCanvas('thumb', "jpg");
+//   }
+// }
+
+
 ////for debugging
 //function keyPressed(){
 //  if(key == "s"){
@@ -69,13 +79,6 @@ function draw() {
 //    loop();
 //  }
 //}
-
-// Save a 5-second gif when the user presses the 's' key.
-function keyPressed() {
-  if (key === 's') {
-    saveGif('d01112025', 15);
-  }
-}
 
 function generateMask(channel, blobs){
 

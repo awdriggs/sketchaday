@@ -13,7 +13,7 @@ let redChannel, greenChannel, blueChannel;
 let redImage, greenImage, blueImage;
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(300, 300);
   redImage = loadImage('red.jpg');
   greenImage = loadImage('green.jpg');
   blueImage = loadImage('blue.jpg');
@@ -44,6 +44,14 @@ function draw() {
     redBlobs[i].update();
     // greenBlobs[i].update();
     // blueBlobs[i].update();
+  }
+}
+
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3, 8)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "jpg");
   }
 }
 

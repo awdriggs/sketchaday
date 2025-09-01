@@ -57,6 +57,7 @@ function setup() {
   ]
 
   createCanvas(680, 960); //p-o screen size
+  // createCanvas(300, 300); 
   //gcf is 40 fyi, producing a 17 x 24 grid
 
   // noStroke();
@@ -106,8 +107,12 @@ function draw() {
   }
 }
 
-function mouseClicked(){
-  saveCanvas("quilt", "png");
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3, 8)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "jpg");
+  }
 }
 
 class Block {

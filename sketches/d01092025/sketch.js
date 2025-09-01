@@ -12,7 +12,7 @@ let redMask, greenMask, blueMask;
 let redImage, greenImage, blueImage;
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(300, 300);
   redImage = loadImage('red.jpg');
   greenImage = loadImage('green.jpg');
   blueImage = loadImage('blue.jpg');

@@ -4,10 +4,10 @@ let pW, pH, rows, cols;
 
 function setup() {
   createCanvas(800, 800);
-
-  pW = 50;
-  pH = 50;
-  let margin = 25;
+  let scale = width/800;
+  pW = 50 * scale;
+  pH = 50 * scale;
+  let margin = 25 * scale;
   let drawingArea = width - 2 * margin - pW * 2;
   rect(margin, 10, drawingArea, 10)
   cols = floor(drawingArea / (pW*2));
@@ -53,6 +53,15 @@ function draw() {
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
+}
+
+
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3, 8)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "jpg");
+  }
 }
 
 class Block {

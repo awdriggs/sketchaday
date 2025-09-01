@@ -54,8 +54,15 @@ function draw() {
   }
 }
 
-function mousePressed() {
-  saveCanvas('d12112024', 'jpg');
+// function mousePressed() {
+//   saveCanvas('d12112024', 'jpg');
+// }
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3, 8)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "jpg");
+  }
 }
 
 // Declaration
