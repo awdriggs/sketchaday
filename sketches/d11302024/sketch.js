@@ -23,7 +23,7 @@ let pusher;
 // let center;
 
 function setup() {
-  // createCanvas(400, 400);
+  // createCanvas(300, 300);
   createCanvas(windowWidth, windowHeight);
 
   physics = new VerletPhysics2D(); //init toxilibs physics world

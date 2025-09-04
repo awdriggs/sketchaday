@@ -25,7 +25,7 @@ let pusher;
 let blobs;
 
 function setup() {
-  // createCanvas(400, 400);
+  // createCanvas(300, 300);
   createCanvas(windowWidth, windowHeight);
 
   physics = new VerletPhysics2D(); //init toxilibs physics world
@@ -84,6 +84,14 @@ function draw() {
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   setBlobs();
+}
+
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3, 8)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "jpg");
+  }
 }
 
 

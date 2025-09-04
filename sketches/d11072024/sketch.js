@@ -5,6 +5,7 @@ let rows = [];
 
 function setup(){
   createCanvas(windowWidth, windowHeight);
+  // createCanvas(300, 300)
 
   // let containerWidth = 800;
   // let containerHeight = 800;
@@ -78,6 +79,15 @@ function draw(){
     quad(last.x, last.y, last.x, last.y+rowHeight, width, last.y+rowHeight, width, last.y);
   }
 }
+
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3, 8)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "jpg");
+  }
+}
+
 
 function randomColor(){
   return color(random(255), random(255), random(255));

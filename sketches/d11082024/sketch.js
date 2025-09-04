@@ -1,3 +1,4 @@
+console.log("huh?");
 let offset;
 let margin = 0;
 let rowHeight = 100;
@@ -5,6 +6,7 @@ let rows = [];
 
 function setup(){
   createCanvas(windowWidth, windowHeight);
+  // createCanvas(300,300);
 
   // let containerWidth = 800;
   // let containerHeight = 800;
@@ -62,6 +64,14 @@ function draw(){
     //end of screen to last line of row
     let last = row[row.length - 1];
     fill(row[0].color);
+  }
+}
+
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3, 8)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "jpg");
   }
 }
 

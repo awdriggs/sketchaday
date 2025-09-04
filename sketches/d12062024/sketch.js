@@ -23,7 +23,7 @@ let pusher;
 // let center;
 
 function setup() {
-  // createCanvas(400, 400);
+  // createCanvas(300, 300);
   createCanvas(windowWidth, windowHeight);
 
   physics = new VerletPhysics2D(); //init toxilibs physics world
@@ -155,6 +155,15 @@ print(frameRate());
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   setPoints();
+}
+
+
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3, 8)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "jpg");
+  }
 }
 
 //move to a new file?
