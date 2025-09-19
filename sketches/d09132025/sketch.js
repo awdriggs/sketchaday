@@ -14,7 +14,7 @@ let threshold = 0.5;
 let cellSize;
 
 function setup() {
-  createCanvas(00, 800);
+  createCanvas(800, 800);
   // createCanvas(windowWidth, windowHeight);
 
   // numCols = width/2;

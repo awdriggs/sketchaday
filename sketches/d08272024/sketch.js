@@ -2,7 +2,7 @@ let bar, slider;
 let oldSliderValue;
 
 function setup() {
-  // createCanvas(400, 400);
+  // createCanvas(600, 600);
   createCanvas(windowWidth, windowHeight);
   // Create a slider and place it at the top of the canvas.
   slider = createSlider(1, width/2, width/2 * 0.75);
