@@ -16,6 +16,7 @@ let n = 0.0;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  // createCanvas(300, 300);
 
   bumps = floor(windowWidth/100);
   spread = width/bumps;
@@ -53,3 +54,13 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   bumps = floor(windowWidth/100);
 }
+
+
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3, 8)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "jpg");
+  }
+}
+

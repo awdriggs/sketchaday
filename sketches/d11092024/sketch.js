@@ -26,6 +26,7 @@ function setup(){
     }
     rows.push(lines);
   }
+
 }
 
 function draw(){
@@ -74,3 +75,13 @@ function draw(){
 function randomColor(){
   return color(random(255), random(255), random(255));
 }
+
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3, 8)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "jpg");
+  }
+}
+
+

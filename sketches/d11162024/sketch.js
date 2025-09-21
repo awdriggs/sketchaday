@@ -6,7 +6,7 @@ function preload() {
 }
 
 function setup() {
-  // createCanvas(400, 400);
+  // createCanvas(300, 300);
   createCanvas(windowWidth, windowHeight);
   bg.resize(width, height);
   img = bg.get();
@@ -73,4 +73,11 @@ function makeMasks(){
   mask1 = pg.get();
 }
 
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3, 8)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "jpg");
+  }
+}
 
