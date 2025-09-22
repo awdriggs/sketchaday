@@ -1,41 +1,69 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <meta charset="utf-8">
     <title>{{ page.title }} | {{ site.title }}</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.min.js"></script>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f0f0;
+}
+        main {
+          text-align: center;
+        }
+        .back-link {
+          padding: 10px 15px;
+          background: rgba(255,255,255,0.9);
+          text-decoration: none;
+          border-radius: 5px;
+          font-family: Arial, sans-serif;
+          margin-bottom: 10px;
+        }
+
+        .back-link img {
+          width: 100px;
+          height: auto;
+        }
+
+        @media (min-width: 1024px) {
+          body {
+            display: block;
+          }
+          main {
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #f0f0f0;
-        }
-        main {
-            text-align: center;
-        }
-        .back-link {
+          }
+          .back-link {
             position: fixed;
-            top: 20px;
             left: 20px;
-            padding: 10px 15px;
-            background: rgba(255,255,255,0.9);
-            text-decoration: none;
-            border-radius: 5px;
-            font-family: Arial, sans-serif;
+            bottom: 20px;
             z-index: 1000;
+            margin-bottom: 0;
+          }
+
+          .back-link img {
+            width: 50px;
+            height: auto;
+          }
+
+
         }
     </style>
-</head>
-<body>
-    <!-- <a href="{{ '/' | relative_url }}" class="back-link">&larr; Back to Gallery</a> -->
-    <a href="#" class="back-link" onclick="history.back(); return false;">&larr; Back to Gallery</a>
+  </head>
+  <body>
     <main>
-        {{ content }}
+      {{ content }}
     </main>
+    <a href="#" class="back-link" onclick="history.back(); return false;"><img src="assets/back.svg"></a>
     <script src="{{ page.script | relative_url }}"></script>
-</body>
+  </body>
 </html>
