@@ -3,18 +3,36 @@ layout: default
 title: Sketch Gallery
 ---
 
-<!-- debug -->
-<!-- <pre>{{ site.data.sketches | inspect }}</pre> -->
-
 <div class="gallery">
-  {% for sketch in site.data.sketches | sort: "date" | reverse %}
+  {% for post in paginator.posts %}
   <div class="gallery-item">
-    <a href="{{ sketch.path }}index.html">
-      <img src="{{ sketch.path }}{{ sketch.thumbnail }}" alt="{{ sketch.title }}">
-      <p class="sketch-title">{{ sketch.title }}</p>
+    <a href="{{ post.url | relative_url }}">
+      <img src="{{ post.thumbnail | relative_url }}" alt="{{ post.title }}" loading="lazy">
+      <p class="sketch-title">{{ post.title }}</p>
+      <!-- <p class="sketch-date">{{ post.date | date: "%B %d, %Y" }}</p> -->
     </a>
   </div>
-
   {% endfor %}
-
 </div>
+
+{% if paginator.total_pages > 1 %}
+<div class="pagination">
+  {% if paginator.previous_page %}
+    <a href="{{ paginator.previous_page_path | relative_url }}" class="prev">&laquo; Previous</a>
+  {% endif %}
+  
+  {% for page in (1..paginator.total_pages) %}
+    {% if page == paginator.page %}
+      <span class="current">{{ page }}</span>
+    {% elsif page == 1 %}
+      <a href="{{ '/' | relative_url }}">{{ page }}</a>
+    {% else %}
+      <a href="{{ site.paginate_path | replace: ':num', page | relative_url }}">{{ page }}</a>
+    {% endif %}
+  {% endfor %}
+  
+  {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path | relative_url }}" class="next">Next &raquo;</a>
+  {% endif %}
+</div>
+{% endif %}

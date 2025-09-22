@@ -1,0 +1,107 @@
+let x,y;
+let rotation;
+let lineLength = 200;
+let yDir = 1;
+let xDir = 1;
+let xMax, xMin, yMax, yMin;
+let n = 0;
+let xNoise = 5;
+
+let linePoints = [];
+let numPoints;
+
+
+function setup() {
+  createCanvas(800, 800);
+  // createCanvas(windowWidth, windowHeight);
+
+  x = width/2;
+  y = height/2;
+
+  rotation = 0;
+  yMax = height * 0.6;
+  yMin = height * 0.4;
+
+  xMax = width;
+  xMin = 0;
+
+  numPoints = 100;
+  let lineSpacing = lineLength/numPoints;
+
+  let start = 0;
+  //space bristles
+  for(let i = 0; i < numPoints; i++){
+    let xOffset = i * lineSpacing + start;
+    xOffset += random(-lineSpacing/2, lineSpacing/2)
+
+    // let yOffset = random(-height/8, height/8);
+    let yOffset = random(-20, 20);
+    linePoints.push({x: xOffset, y: yOffset});
+  }
+
+  console.log(linePoints);
+
+  background(255);
+}
+
+function draw() {
+  // background(255);
+
+  push();
+  translate(x,y)
+  rotate(rotation);
+  // ellipse(0, 0, 2, 2);
+  stroke(0);
+  // line(-lineLength/2, 0, lineLength/2, 0);
+
+  let start = lineLength/2 
+
+  for(let p of linePoints){
+    ellipse(p.x - start, p.y, 2, 2);
+  }
+
+  pop();
+
+   
+  rotation += map(noise(n), 0, 1, -0.01, 0.01);
+  rotation = constrain(rotation, -QUARTER_PI/2, QUARTER_PI/2)
+
+  x += map(noise(xNoise), 0, 1, -1, 1) * xDir;
+  
+
+  y += 1 * yDir;
+
+  if(x > xMax){
+    x = xMax;
+    xDir *= -1;
+    // rotation *= -1;
+  } else if(x < xMin){
+    x = xMin;
+    xDir *= -1;
+    // rotation *= -1;
+  }
+  if(y > yMax){
+    y = yMax;
+    yDir *= -1;
+    // rotation *= -1;
+  } else if(y < yMin){
+    y = yMin;
+    yDir *= -1;
+    // rotation *= -1;
+  }
+
+  n += 0.1;
+  xNoise += 0.5;
+}
+
+// function windowResized() {
+//   resizeCanvas(windowWidth, windowHeight);
+// }
+
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3, 5)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "jpg");
+  }
+}
