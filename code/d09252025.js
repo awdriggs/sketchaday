@@ -5,7 +5,7 @@ let nextGeneration = [];
 let cellSize;
 
 function setup() {
-  createCanvas(300, 300);
+  createCanvas(800, 800);
   // createCanvas(windowWidth, windowHeight);
 
   numCols = 100;
@@ -64,9 +64,9 @@ function draw() {
   spores = nextGeneration;
   nextGeneration = [];
 
-  if(frameCount == 1){
-    saveGif('thumb', 5);
-  }
+  // if(frameCount == 1){
+  //   saveGif('thumb', 5);
+  // }
 
 }
 
