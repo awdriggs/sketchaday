@@ -12,8 +12,8 @@ function setup() {
   numLines = 4;
   let limit = PI/30;
 
-  let numCols = 1;
-  let numRows = 1;
+  let numCols = 10;
+  let numRows = 10;
   cellWidth = width/numCols;
   cellHeight = height/numRows;
 
@@ -153,9 +153,26 @@ class TurningLine {
     //} else
 
     if(this.mouseIn == true && previousState == false){
-      this.speed = random(0.002, 0.005);
-      this.offsetSpeed = random(0.01, 2);
+      // this.speed = random(0.002, 0.005);
+      // this.offsetSpeed = random(0.01, 2);
+      // record the frame when the mouse entered
+      this.framesInStart = frameCount;
+      this.speed = 0;
+      this.offsetSpeed = 0;
+      
+    } else if(this.mouseIn == false && previousState == true){
+      //stop counting frames
+      let numFrames = frameCount - this.framesInStart;
+
+      //calculate speed
+      //this width / num of frames in took to enter and exit. small numbers will be faster, so divide by the small number to make it faster
+      // this.speed  = 0.01/numFrames  
+      this.speed = 0.01 / Math.pow(numFrames, 0.3)
+      // this.offsetSpeed = 2/numFrames
+      this.offsetSpeed = 2 / Math.pow(numFrames, 0.3)
+
     } else if(this.mouseIn == false){ //was in but left
+
       //sttart slow down
       this.speed -= 0.00005;
       this.offsetSpeed -= 0.005;
@@ -167,6 +184,8 @@ class TurningLine {
       if(this.offsetSpeed < 0){
         this.offsetSpeed = 0;
       }
+
+
     }
 
     // debugger;
