@@ -1,3 +1,6 @@
+//there is a bug in this code that I can't track down, where some of the original boxes don't subdivide
+//but i'm ready to move on and happy with the outcome.
+
 let grid, emptyCells, agents;
 let numCols, numRows;
 
@@ -68,7 +71,7 @@ function draw() {
   lastNumEmpty = emptyCells.length;
 
   // if(frameCount == 1){
-  //   saveGif('thumb', floor(random(3, 5)));
+  //   saveGif('thumb', floor(random(5, 8)));
   // }
 
   agents = agentsToKeep;
