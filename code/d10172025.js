@@ -74,7 +74,6 @@ class Rect {
         let x = j * this.cellWidth + this.cornerX;
 
         this.grid.push(new Poly(x, y, this.cellWidth, this.cellHeight, this.fc, this.gc));
-
       }
     }
   }
