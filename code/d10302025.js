@@ -12,12 +12,17 @@ function setup() {
   // points = generatePoints(0, 0, width, height);
 
   // frameRate(1);
+  noStroke();
+  // blendMode(HARD_LIGHT);
+  // blendMode(REMOVE);
+  // blendMode(ADD);
 }
+
 
 function draw() {
   background(255);
-  drawShape(tris[triIndex]);
   drawShape(quads[quadIndex]);
+  drawShape(tris[triIndex]);
 
   if(frameCount % 60 == 0){
     updateIndexes();
@@ -41,6 +46,7 @@ function generatePolys(x, y, w, h){
 
   let polys = [];
 
+
   polys.push([a, e, k, f]);
   polys.push([b, e, k, f]);
   polys.push([b, d, k, f]);
@@ -59,8 +65,14 @@ function generatePolys(x, y, w, h){
 
 
 function drawShape(arr){
-  noFill();
-
+  // noFill();
+  fill(255, 100);
+  // fill(random(255), random(255), random(255));
+  if(arr.length == 4){
+    fill(0);
+  } else {
+    fill(255);
+  }
   beginShape();
   for(let i = 0; i < arr.length; i++){
     vertex(arr[i].x, arr[i].y);
@@ -111,6 +123,9 @@ function updateIndexes(){
       quadIndex = 0;
     }
   }
+
+  // triIndex = floor(random(0, tris.length));
+  // quadIndex = floor(random(0, quads.length));
 
 }
 
