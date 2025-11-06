@@ -9,12 +9,11 @@ let world = [];
 
 let snakes = [];
 
-let cellSize = 40;
+let cellSize = 10;
 let numCols, numRows;
-let numSnakes = 1;
+let numSnakes = 10;
 
 let emptyCells = [];
-let flipflop = 0;
 
 
 function setup() {
@@ -118,8 +117,7 @@ function resetSnakes(){
     let randomX = floor(random(0, numCols));
     let randomY = floor(random(0, numRows));
     let dir = floor(random(0,4)) * 90;
-    snakes.push(new Snake(randomX, randomY, dir, flipflop % 2 * 255));
-    flipflop++;
+    snakes.push(new Snake(randomX, randomY, dir, randomColor()));
   }
 }
 
@@ -130,8 +128,7 @@ function updateSnakes(){
       let empty = emptyCells[randomIndex];
       emptyCells.splice(randomIndex, 1);
       let dir = floor(random(0,4)) * 90;
-      snakes.push(new Snake(empty[0], empty[1], dir, flipflop % 2 * 255));
-      flipflop++;
+      snakes.push(new Snake(empty[0], empty[1], dir, randomColor()));
     }
     // debugger;
   }
@@ -221,11 +218,6 @@ class Snake {
       }
 
     }
-
-
   }
 
-  // checkNeighbors(){
-    
-  // }
 }
