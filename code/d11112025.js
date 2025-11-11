@@ -1,8 +1,9 @@
+let numBoxes = 8;
+let boxes = [];
+
 let grid, emptyCells, agents;
 let numCols, numRows;
 let cellSize
-
-let rects = [];
 
 function setup() {
   createCanvas(800, 800);
@@ -13,8 +14,9 @@ function setup() {
   start();
   buildGrid(); //this uses recursion
   //when you get to here the grid wil be built
-  createRects(agents);
+  boxes = generateBoxes(agents);
 
+  noLoop();
   noStroke();
 }
 
@@ -23,16 +25,17 @@ let lastNumEmpty;
 function draw() {
   background(255);
 
-   for(let r of rects){
-    r.draw();
+  for(let b of boxes){
+    b.draw()
   }
-
 }
 
 function mousePressed(){
   start();
   buildGrid();
-  createRects(agents);
+  boxes = generateBoxes(agents);
+
+  redraw();
 }
 
 function start(){
@@ -61,7 +64,7 @@ function start(){
 function newAgents(){
   agents = [];
 
-  let numAgents = 4;
+  let numAgents = numBoxes;
   for(let i = 0; i < numAgents; i++){
     let w = floor(random(10, 50));
     let h = floor(random(10, 50));
@@ -101,7 +104,6 @@ function buildGrid(){
   if(emptyCells.length > 0){
     buildGrid() //recursion
   }
-
 }
 
 function createRects(agents) {
@@ -114,14 +116,25 @@ function createRects(agents) {
     let h = a.h * cellSize;
 
     rects.push(new Rect(x, y, w, h, color(random(0, 255), random(0, 255), random(0, 255)), color(random(0, 255), random(0, 255), random(0,255))));
-    
+
   }
 }
 
+function generateBoxes(agents){
+  let boxes = [];
 
-// function windowResized() {
-//   resizeCanvas(windowWidth, windowHeight);
-// }
+  for(let a of agents){
+    // debugger;
+    let x = a.startX * cellSize;
+    let y = a.startY * cellSize;
+    let w = a.w * cellSize;
+    let h = a.h * cellSize;
+
+    boxes.push(new gradientBox(x, y, w, h));
+  }
+
+  return boxes
+}
 
 function keyPressed(){
   if(key == "g"){
@@ -131,8 +144,31 @@ function keyPressed(){
   }
 }
 
-function findEmpty(){
-  //function to find all the empty cells
+function setColors(){
+  let colors = [];
+  let allColors = [color("#D3A7A0"), color("#104E4E"), color("#8E6E3D"), color("#D36E22"), color("#0B0811"), color("#E4C09D"), color("#E4C09D"), color("#8F5D25")];
+  // let allColors = [color(255), color(0)];
+
+  allColors = shuffle(allColors);
+
+  //build the colors array from the options.
+  //choose one, two, or three colors
+  numColors = floor(random(1, 4));
+  // numColors = 3
+
+  if(numColors == 1){
+    colors.push(allColors[0]);
+  } else if(numColors == 2){
+    colors.push(allColors[0]);
+    colors.push(allColors[1]);
+  } else {
+    colors.push(allColors[0]);
+    colors.push(allColors[1]);
+    colors.push(allColors[0]);
+  }
+
+  console.log(colors);
+  return colors;
 }
 
 class Cell {
@@ -314,109 +350,39 @@ class Rectangle {
   }
 }
 
-class Rect {
-  constructor(x, y, w, h, fc, gc){
-    this.width = w;
-    this.height = h;
-    this.cornerX = x;
-    this.cornerY = y;
-    this.fc = fc;
-    this.gc = gc;
-
-    this.init();
-  }
-
-  init() {
-    this.grid = [];
-
-    let minWidth = this.width/20;
-    let maxWidth = this.width/10;
-    let minHeight = this.height/20;
-    let maxHeight = this.height/10;
-
-    // Track relative position, not absolute
-    let relX = 0;
-    let row = [];
-
-    while(relX < this.width){
-      let w = random(minWidth, maxWidth);
-
-      if(this.width - (relX + w) < minWidth){
-        w = this.width - relX;
-      } else if(relX + w > this.width){
-        w = this.width - relX;
-      }
-
-      // Use absolute position for Poly constructor
-      row.push(new Poly(this.cornerX + relX, this.cornerY, w, random(minHeight, maxHeight), this.fc, this.gc));
-      relX += w;
-    }
-
-    this.grid.push(...row);
-
-    for(let i = 0; i < row.length; i++){
-      let relY = row[i].h; // Start relative to cornerY
-      let x = row[i].cornerX;
-      let w = row[i].w;
-
-      while(relY < this.height){
-        let h = random(minHeight, maxHeight);
-
-        if(this.height - (relY + h) < minHeight){
-          h = this.height - relY;
-        } else if(relY + h > this.height){
-          h = this.height - relY;
-        }
-
-        this.grid.push(new Poly(x, this.cornerY + relY, w, h, this.fc, this.gc));
-        relY += h;
-      }
-    }
-  }
-
-  draw(){
-    for(let c of this.grid){
-      c.draw();
-    }
-  }
-}
-
-class Poly {
-  constructor(cornerX, cornerY, w, h, fill, groundFill){
-    this.cornerX = cornerX;
-    this.cornerY = cornerY;
+class gradientBox {
+  constructor(x, y, w, h){
+    this.x = x;
+    this.y = y;
     this.w = w;
     this.h = h;
-    this.margin = this.w/4;
-    this.x1 = this.cornerX + this.margin * random(0.25, 0.75);
-    this.y1 = this.cornerY + this.margin * random(0.25, 0.75);
-    this.x2 = this.cornerX + this.w - this.margin * random(0.25, 0.75);
-    this.y2 = this.cornerY + this.margin * random(0.25, 0.75);
-    this.x3 = this.cornerX + this.w - this.margin * random(0.25, 0.75);
-    this.y3 = this.cornerY + this.h - this.margin * random(0.25, 0.75);
-    this.x4 = this.cornerX + this.margin * random(0.25, 0.75);
-    this.y4 = this.cornerY + this.h - this.margin * random(0.25, 0.75);
-
-    // debugger;
-    //colors
-    this.groundFill = groundFill;
-    this.fill = fill;
+    this.colors = setColors(); //call the global set colors function
+    this.opacity = floor(random(128, 255))
   }
+  // fill(red(c), green(c), blue(c), 128); // alpha 0-255
 
   draw(){
-    //draw the ground
-    fill(this.groundFill);
-    rect(this.cornerX, this.cornerY, this.w, this.h);
+    //build a gradient from the colors array
+    if(this.colors.length == 1){
+      fill(this.colors[0]);
+      rect(this.x, this.y, this.w, this.h);
+    } else if(this.colors.length == 2){
+      for(let i = 0; i < this.w; i++){
+        fill(lerpColor(this.colors[0], this.colors[1], i/this.w));
+        rect(this.x + i, this.y, 1.5, this.h);
+      }
+    } else if(this.colors.length == 3){
+      for(let i = 0; i < this.w/2; i++){
+        fill(lerpColor(this.colors[0], this.colors[1], i/(this.w/2)));
+        rect(this.x + i, this.y, 1.5, this.h);
+      }
 
-    fill(this.fill);
-    //draw the poly
-    beginShape();
-    vertex(this.x1, this.y1);
-    vertex(this.x2, this.y2);
-    vertex(this.x3, this.y3);
-    vertex(this.x4, this.y4);
-    endShape(CLOSE);
-
+      for(let i = this.w/2; i < this.w; i++){
+        fill(lerpColor(this.colors[1], this.colors[0], (i-this.w/2)/(this.w/2)));
+        rect(this.x + i, this.y, 1.5, this.h);
+      }
+    }
   }
 }
+
 
