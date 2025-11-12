@@ -34,7 +34,7 @@ function draw() {
 
   if(frameCount % 60 == 0){
     console.log(frameCount);
-    if(random() > 0.5){
+    if(random() > 0.7){
       grid = buildGrid(); 
     }
   }
