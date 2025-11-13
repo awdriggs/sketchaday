@@ -30,7 +30,7 @@ function setup() {
   // spores.push(new Spore(50, 50, color(255, 0, 255)));
 
   //make a grid
-  let space = 50
+  let space = 100 
   for(let i = space/2; i < grid.length; i+=space){
     for(let j = space/2; j < grid[i].length; j+=space){
       let c = color(random(0, 255), random(0, 255), random(0, 255));
