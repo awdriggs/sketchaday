@@ -4,6 +4,11 @@
     <meta charset="utf-8">
     <title>{{ page.title }} | {{ site.title }}</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.min.js"></script>
+    {% if page.libraries %}
+    {% for library in page.libraries %}
+    <script src="{{ library }}"></script>
+    {% endfor %}
+    {% endif %}
     <style>
 body {
   margin: 0;
