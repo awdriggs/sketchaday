@@ -1,5 +1,5 @@
 let bulbs = [];
-let anchor;
+let anchors = [];
 
 let { Vec2D, Rect } = toxi.geom;
 let { VerletPhysics2D, VerletParticle2D, VerletSpring2D } = toxi.physics2d;
@@ -9,7 +9,7 @@ let physics;
 
 let grabbed;
 
-let preview = true;
+let preview = false;
 
 function setup() {
   createCanvas(800, 800);
@@ -17,47 +17,61 @@ function setup() {
   // Creating a toxiclibs Verlet physics world
   physics = new VerletPhysics2D();
   physics.setWorldBounds(new Rect(0, 0, width, height));
-  physics.addBehavior(new GravityBehavior(new Vec2D(0, 0.5)));
+  physics.addBehavior(new GravityBehavior(new Vec2D(0, 0.0001)));
 
-  anchor = new Particle(width/2, height/10, 20);
+  //one anchor only
+  anchors.push(new Particle(width/2, height/2, 20));
+  physics.addParticle(anchors[0]);
+  anchors[0].lock()
 
-  let numBulbs = 10;
 
+  let numBulbs = 360;
+
+  let radius = width/2;
+  let angleStep = TWO_PI/numBulbs;
   //create the ends
+
   for(let i = 0; i < numBulbs; i++){
-    bulbs.push(new Particle(random(0, width), random(0, height), 20));
+    //from center, distance
+    let angle = angleStep * i;
+    let x = cos(angle);
+    let y = sin(angle);
+
+    let bx = x * radius + width/2;
+    let by = y * radius + height/2;
+
+    bulbs.push(new Particle(bx, by, 20));
+    physics.addParticle(bulbs[i]);
+
+    // let ax = x * (radius + 100) + width/2;
+    // let ay = y * (radius + 100) + height/2;
+
+    // anchors.push(new Particle(ax, ay, 20));
   }
 
-  let spacing = width/4;
+  // let spacing = 100;
 
-  for(let i = 0; i < bulbs.length; i++){
-    let b = bulbs[i];
-    physics.addParticle(b);
+  // for(let i = 0; i < bulbs.length; i++){
+  //   let b = bulbs[i];
+  //   physics.addParticle(b);
 
-    // let spring = new VerletSpring2D(
-    //   b,
-    //   anchor,
-    //   spacing,
-    //   0.1
-    // );
+  //   b.lock()
 
-    // physics.addSpring(spring);
+  //   let a = anchors[0];
 
-  }
+  //   let spring = new verletspring2d(
+  //     b,
+  //     a,
+  //     radius,
+  //     0.1
+  //   );
 
-  physics.addParticle(anchor);
-  anchor.lock()
+  //   physics.addspring(spring);
+
+  // }
 
 
-  let spring = new VerletSpring2D(
-    bulbs[0],
-    anchor,
-    spacing,
-    0.1
-  );
-
-  physics.addSpring(spring);
-
+  let length = 2 * PI * radius / bulbs.length;
 
   for(let i = 0; i < bulbs.length; i++){
 
@@ -65,18 +79,21 @@ function setup() {
       bulbs[i],
       bulbs[(i + 1) % bulbs.length],  // wraps around to connect last to first
       // dist(corners[i].x, corners[i].y, corners[(i + 1) % corners.length].x, corners[(i + 1) % corners.length].y),
-      width/numBulbs,
+      length/2,
       0.1
     );
     physics.addSpring(spring);
   }
 
+  noStroke();
 
 }
 
 function draw() {
   background(255);
   physics.update();
+
+  text("fail", 20, 20);
 
   fill(0, 0, 255, 100);
 
@@ -87,14 +104,17 @@ function draw() {
   endShape(CLOSE);
 
   if(preview){
+    let a = anchors[0]
+    ellipse(a.x, a.y, 20, 20);
     for(let i = 0; i < bulbs.length; i++){
       let b = bulbs[i]
-      ellipse(anchor.x, anchor.y, 20, 20);
+      // let a = anchors[i]
+      // ellipse(a.x, a.y, 20, 20);
       ellipse(b.x, b.y, 10, 10);
     }
 
 
-    line(anchor.x, anchor.y, bulbs[0].x, bulbs[0].y);
+    // line(anchor.x, anchor.y, bulbs[0].x, bulbs[0].y);
   }
 
   if(grabbed){
@@ -102,16 +122,18 @@ function draw() {
     grabbed.handleDrag(mouseX, mouseY)
   }
 
-  // if(frameCount < 300){
-  //   text('press "s" to show/hide anchors', 20, 20);
-  // }
+  if(frameCount == 1){
+    saveGif('thumb', 8);
+  }
 
 
 }
 
 function mousePressed() {
-  if(anchor.mouseIn(mouseX, mouseY)){
-    grabbed = anchor;
+  for(let anchor of anchors){
+    if(anchor.mouseIn(mouseX, mouseY)){
+      grabbed = anchor;
+    }
   }
 }
 
@@ -121,6 +143,8 @@ function mouseReleased(){
     grabbed = null;
   }
 }
+
+
 
 
 // function windowResized() {
