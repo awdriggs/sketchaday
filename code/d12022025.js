@@ -123,7 +123,7 @@ function draw() {
   }
 
   if(frameCount == 1){
-    saveGif('thumb', 8);
+    // saveGif('thumb', 8);
   }
 
 
