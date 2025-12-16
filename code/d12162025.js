@@ -12,7 +12,8 @@ function setup() {
   let colWidth = width/numCols
 
   lineThickness = width/80;
-  space =  lineThickness * 1.75;
+  // space =  lineThickness * 1.75;
+  space = 0;
 
   for(let i = 0; i < numRows; i++){
     for(let j = 0; j < numCols; j++){
@@ -62,7 +63,7 @@ class straightWave {
     print(space);
     //this is a mistake, but you are keeping it for today! later change the height cy - this.h/2 and cy + this.h/2
     this.p1 = createVector(this.cx + cos(this.angle) * (this.w/2 - space) + this.w/2, this.cy + sin(this.angle) * (this.h/2 - space) + this.h/2);
-    // this.p2 = createVector(this.cx + cos(this.angle) * this.w/2 + this.w/2 - space, this.cy + this.h/2 - space);
+    this.p2 = createVector(this.cx + cos(PI + this.angle) * (this.w/2 - space)  + this.w/2, this.cy + sin(PI + this.angle) * (this.h/2 - space) + this.h/2);
     // this.speed = random(0.01 , 0.04)
     this.speed = s;
   }
@@ -76,22 +77,25 @@ class straightWave {
     // noFill();
     // rect(this.cx, this.cy, this.w, this.h);
 
-    if(mouseOut){
-       
-       
-      this.angle += this.speed;
-
-      this.p1.x = this.cx + cos(this.angle) * (this.w/2-space) + this.w/2;
-      this.p1.y = this.cy + sin(this.angle) * (this.h/2-space) + this.h/2;
-
-    } else {
-      this.speed = random(0.01 , 0.04)
+    if(random() > 0.9){
+      this.speed = random(0.01 , 0.02)
     }
+
+    this.angle += this.speed;
+
+    this.p1.x = this.cx + cos(this.angle) * (this.w/2-space) + this.w/2;
+    this.p1.y = this.cy + sin(this.angle) * (this.h/2-space) + this.h/2;
+    this.p2.x = this.cx + cos(PI + this.angle) * (this.w/2-space) + this.w/2;
+    this.p2.y = this.cy + sin(PI + this.angle) * (this.h/2-space) + this.h/2;
+
     // this.p2.x = this.cx + cos(this.angle) * (this.w/2-space) + this.w/2;
     // line(this.p1.x, this.p1.y, this.p2.x, this.p2.y);
-    fill(0);
-    noStroke();
-    ellipse(this.p1.x, this.p1.y, lineThickness*2, lineThickness*2);
+    // fill(0);
+    // noStroke();
+    // ellipse(this.p1.x, this.p1.y, lineThickness*2, lineThickness*2);
+    // ellipse(this.p2.x, this.p2.y, lineThickness*2, lineThickness*2);
+    stroke(0);
+    line(this.p1.x, this.p1.y, this.p2.x, this.p2.y);
 
     // if(random() < 0.0001){
     //   console.log('changing speed');
