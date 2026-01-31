@@ -52,7 +52,6 @@ class Stack {
 
     console.log("init stack");
     this.build(cx, cy, w, h); //fills the squares array
-
   }
 
   build(cornerX, cornerY, totalWidth, totalHeight){
