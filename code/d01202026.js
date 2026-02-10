@@ -108,6 +108,7 @@ class Rectangle {
       } else {
         strokeWeight(stroke2);
       }
+      
 
       line(currentP.x, currentP.y, prevP.x, prevP.y);
     }
