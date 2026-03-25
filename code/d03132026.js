@@ -5,7 +5,7 @@ let numMovers;
 let img;
 
 function preload() {
-    img = loadImage('/assets/images/mona.jpeg');
+    img = loadImage('assets/images/mona.jpeg');
   }   
 
 function setup() {
