@@ -4,9 +4,7 @@ let w, h;
 let numMovers;
 let img;
 
-function preload() {
-    img = loadImage('/sketchaday/assets/images/mona.jpeg');
-  }   
+let bg; //var for background image
 
 function setup() {
   createCanvas(800, 800);
@@ -14,19 +12,20 @@ function setup() {
   w = 10;
   h = w;
 
-  img.loadPixels();
-  let numRows = img.width;
-  let numCols = img.height;
+  makeBgImage();
+
+  bg.loadPixels();
+  let numRows = bg.width;
+  let numCols = bg.height;
   let cellSize = width/numRows;
 
   numMovers = 10;
-  for(let y = 0; y < numRows; y+=5){
-    for(let x = 0; x < numCols; x+=5){
-    let pixelFill = img.get(x,y); 
+  for(let y = 0; y < numRows; y++){
+    for(let x = 0; x < numCols; x++){
+      let pixelFill = bg.get(x,y);
       for(let i = 0; i < numMovers; i++){
         // let randomFill = color(random(0, 255), random(0, 255), random(0, 255));
         movers.push(new BrownMover(x * cellSize + cellSize/2, y * cellSize + cellSize/2, w, h, pixelFill));
-
       }
     }
   }
@@ -40,36 +39,27 @@ function draw() {
     mover.move();
     mover.draw()
   }
-
-  
-
-  // if(frameCount % 30 == 0){
-  //   let randomFill = color(random(0, 255), random(0, 255), random(0, 255));
-  //   for(let i = 0; i < numMovers; i++){
-  //     // let randomFill = color(random(0, 255), random(0, 255), random(0, 255));
-  //     movers.push(new BrownMover(width/2, height/2, w, h, randomFill));
-  //   }
-
-  //   if(movers.length > numMovers * 10){
-  //     movers.splice(0, 10);
-  //   }
-  // }
 }
 
-// function mousePressed(){
-//   let numMovers = 100;
-//   let randomFill = color(random(0, 255), random(0, 255), random(0, 255));
-//   for(let i = 0; i < numMovers; i++){
-//     // let randomFill = color(random(0, 255), random(0, 255), random(0, 255));
-//     movers.push(new BrownMover(mouseX, mouseY, 10, 10, randomFill));
-//   }
+function makeBgImage(){
+  // Create a p5.Graphics object.
+  bg = createGraphics(100, 100);
 
-// }
+  // Draw to the p5.Graphics object.
+  bg.background(255);
+   
+  let numCols = 10;
+  let numRows = 10;
 
+  let cellSize =  bg.width/numCols;  
 
-// function windowResized() {
-//   resizeCanvas(windowWidth, windowHeight);
-// }
+  bg.fill(0);
+  for(let i = 0; i < numRows; i++){
+    for(let j = 0; j < numCols; j++){
+      bg.ellipse(j * cellSize + cellSize/2, i * cellSize + cellSize/2, cellSize * 0.8, cellSize * 0.8); 
+    }
+  }
+}
 
 function keyPressed(){
   if(key == "g"){
