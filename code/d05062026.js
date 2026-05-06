@@ -1,31 +1,42 @@
-//delenay with poisson points and bisectors
-let points =  [];
-let bisecotrs = [];
+let movers = [];
 let triangles = [];
-let cellWidth, cellHeight;
 let tl, tr, bl, br;
-let numRows, numCols;
-let n = 0; //global noise value
 let lineThickness;
-let distributionRadius; //for poisson distribution
 
 function setup() {
   createCanvas(800, 800);
-  // createCanvas(windowWidth, windowHeight);
-  distributionRadius = 150 * width/800;
-  lineThickness = 10 * width/800;
-  reset();
 
-  strokeWeight(lineThickness);
-  strokeCap(SQUARE);
+  lineThickness = 10 * width/800;
+  // createCanvas(windowWidth, windowHeight);
+  let numCols = 5;
+  let numRows = 5;
+  let cellWidth = width/numCols;
+  let cellHeight = height/numRows;
+
+  for(let i = 0; i < numRows; i++){
+    for(let j = 0; j < numCols; j++){
+
+      let x = j * cellWidth;
+      let y = i * cellHeight;
+      
+      let mover = new Mover(x + cellWidth/2, y + cellHeight/2, x, y, cellWidth, cellHeight);
+      movers.push(mover);
+    }
+  }
 
 }
 
 function draw() {
   background(255);
 
+  for(let m of movers){
+    m.draw();
+  }
+
+  reset(); //triangulate!
+
   for(let t of triangles){
-    noFill();
+    // noFill();
     let hasCorner = false;
     for(let v of t){
       if(v == tl || v == tr || v == bl || v == br){
@@ -34,42 +45,37 @@ function draw() {
     }
 
     if(hasCorner == false){
-      fill(0);
-      triangle(t[0].x, t[0].y, t[1].x, t[1].y, t[2].x, t[2].y);
-      stroke(255);
+      // fill(0);
+      // triangle(t[0].x, t[0].y, t[1].x, t[1].y, t[2].x, t[2].y);
+      stroke(0);
       strokeWeight(lineThickness);
       line(t[0].x, t[0].y, t[1].x, t[1].y);
       line(t[1].x, t[1].y, t[2].x, t[2].y);
       line(t[2].x, t[2].y, t[0].x, t[0].y);
 
-      if(t[3]){ //if this triangle has bisectors
-        //draw bisectors
-        line(t[3].x, t[3].y, t[4].x, t[4].y);
-      }
-
       noStroke();
-      fill(255);
+      fill(0);
       ellipse(t[0].x, t[0].y, lineThickness, lineThickness);
       ellipse(t[1].x, t[1].y, lineThickness, lineThickness);
       ellipse(t[2].x, t[2].y, lineThickness, lineThickness);
     }
   }
+}
 
-  //animator
-  if(frameCount % 30 == 0){
-    //   reset();
-    reset();
+// function windowResized() {
+//   resizeCanvas(windowWidth, windowHeight);
+// }
+
+function keyPressed(){
+  if(key == "g"){
+    saveGif('thumb', floor(random(3, 8)));
+  } else if(key == "p"){
+    saveCanvas('thumb', "jpg");
   }
-
 }
 
 function reset(){
   triangles = [];
-  points = [];
-  numRows = 10;
-  numCols = 10;
-  cellWidth = width/numCols;
-  cellHeight = height/numRows;
 
   //supertriangle
   // triangles.push([{x: width/2, y: -height * 2}, {x: -width * 2, y: height * 2}, {x: width * 3, y: height * 2}])
@@ -82,40 +88,17 @@ function reset(){
   triangles.push([tl, tr, bl]);
   triangles.push([bl, br, tr]);
 
-  //poisson points
-  points = poisson(width, height, distributionRadius);
+  // poisson points
+  //  points = poisson(width, height, distributionRadius);
 
   // noStroke();
   // addPoint(points[0])
 
-  for(let p of points){
-    addPoint(p);
+  //movers has been updates
+  for(let m of movers){
+    addPoint(m.loc);
   }
-
-  //triangels are finished. now bisect some triangles
-  for(let t of triangles){
-
-    if(random() < 0.2){
-      //choose two sides
-      let sides = [[0,1], [1,2], [0, 2]]
-      let firstSide = sides.splice(floor(random(sides.length)), 1)[0];
-      let secondSide = sides.splice(floor(random(sides.length)), 1)[0];
-
-      let t1 = random(0.2, 0.8);
-      let t2 = random(0.2, 0.8);
-
-      let startX = t[firstSide[0]].x + t1 * (t[firstSide[1]].x - t[firstSide[0]].x);
-      let startY = t[firstSide[0]].y + t1 * (t[firstSide[1]].y - t[firstSide[0]].y);
-
-      let endX = t[secondSide[0]].x + t2 * (t[secondSide[1]].x - t[secondSide[0]].x);
-      let endY = t[secondSide[0]].y + t2 * (t[secondSide[1]].y - t[secondSide[0]].y);
-
-      // debugger;
-      t.push({x: startX, y: startY});
-      t.push({x: endX, y: endY});
-    }
-
-  }
+  
 }
 
 function getCircumCircle(triVerts){
@@ -212,5 +195,53 @@ function keyPressed(){
 // class Point {
 //   constructor(x, y, drift)
 // }
+
+
+
+//mover
+//has an inclination to move in the direction that it is already heading in
+//when it get the boundry it turns
+//mover knows its bounds
+
+class Mover {
+  constructor(sx, sy, bx, by, bw, bh){
+    this.loc = createVector(sx, sy);
+    this.boundingBox = {x: bx, y: by, w: bw, h: bh};
+    this.angle = createVector(random(TWO_PI), random(TWO_PI));
+    this.speed = random(0.1, 1);
+    this.stepSize = 0.8;
+    this.dia = 10;
+  }
+
+  update(){
+    this.angle.x += random(-this.stepSize, this.stepSize);
+    this.angle.y += random(-this.stepSize, this.stepSize);
+
+    let bb = this.boundingBox;
+    let r = this.dia / 2;
+
+    let nx = this.loc.x + sin(this.angle.x) * this.speed;
+    let ny = this.loc.y + sin(this.angle.y) * this.speed;
+
+    if(nx - r < bb.x || nx + r > bb.x + bb.w){
+      this.angle.x *= -1;
+      nx = this.loc.x + sin(this.angle.x) * this.speed;
+    }
+
+    if(ny - r < bb.y || ny + r > bb.y + bb.h){
+      this.angle.y *= -1;
+      ny = this.loc.y + sin(this.angle.y) * this.speed;
+    }
+
+    this.loc.x = nx;
+    this.loc.y = ny;
+  }
+
+  draw(){
+    this.update();
+    // rect(this.boundingBox.x, this.boundingBox.y, this.boundingBox.w, this.boundingBox.h);
+    // ellipse(this.loc.x, this.loc.y, this.dia, this.dia);
+  }
+}
 
 
