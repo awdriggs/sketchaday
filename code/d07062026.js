@@ -1,5 +1,5 @@
 const DEVICE_ID = 'ams01';
-let days = 2;
+let days = 1;
 let LIMIT = days * 1440;
 
 let colorReading = {};
