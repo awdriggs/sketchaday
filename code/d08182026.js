@@ -1,7 +1,7 @@
 let shadowRects = [];
 
 function setup() {
-  createCanvas(300, 300);
+  createCanvas(800, 800);
 
   reset();
 }
