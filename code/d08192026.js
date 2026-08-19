@@ -1,9 +1,7 @@
-// TODO make the direction differnet for each cell
-
 let shadowRects = [];
 
 function setup() {
-  createCanvas(300, 300);
+  createCanvas(800, 800);
 
   reset();
 }
@@ -41,26 +39,25 @@ function reset(){
   let numRects = floor(random(6, 13));
   let margin = width * 0.1;
   let gap = width * 0.02;
-  let dir = floor(random(0, 4));
-
   let maxSize = (width - 2 * margin) / sqrt(numRects);
   let rects = [];
   for(let i = 0; i < numRects; i++){
     let offset = random(maxSize * 0.1, maxSize * 0.25);
     let w = random(maxSize * 0.3, maxSize * 0.7);
     let h = random(maxSize * 0.3, maxSize * 0.7);
-    rects.push({ w, h, offset });
+    let dir = floor(random(0, 4));
+    rects.push({ w, h, offset, dir });
   }
 
   rects.sort((a, b) => (b.h + b.offset) - (a.h + a.offset));
 
-  let dx = (dir == 0 || dir == 1) ? -1 : 1;
-  let dy = (dir == 0 || dir == 2) ? -1 : 1;
   let cx = margin, cy = margin, shelfH = 0;
 
   // first pass: collect placements
   let placements = [];
   for(let r of rects) {
+    let dx = (r.dir == 0 || r.dir == 1) ? -1 : 1;
+    let dy = (r.dir == 0 || r.dir == 2) ? -1 : 1;
     let totalW = r.w + r.offset + gap;
     let totalH = r.h + r.offset + gap;
 
@@ -75,7 +72,7 @@ function reset(){
     let fx = cx + (dx < 0 ? r.offset : 0);
     let fy = cy + (dy < 0 ? r.offset : 0);
 
-    placements.push({ fx, fy, w: r.w, h: r.h, offset: r.offset });
+    placements.push({ fx, fy, w: r.w, h: r.h, offset: r.offset, dir: r.dir, dx, dy });
     cx += totalW + gap;
     shelfH = max(shelfH, totalH);
   }
@@ -83,8 +80,8 @@ function reset(){
   // find actual used extent relative to margin
   let maxX = 0, maxY = 0;
   for(let p of placements) {
-    maxX = max(maxX, p.fx + p.w + (dx > 0 ? p.offset : 0) - margin);
-    maxY = max(maxY, p.fy + p.h + (dy > 0 ? p.offset : 0) - margin);
+    maxX = max(maxX, p.fx + p.w + (p.dx > 0 ? p.offset : 0) - margin);
+    maxY = max(maxY, p.fy + p.h + (p.dy > 0 ? p.offset : 0) - margin);
   }
 
   // scale to fill canvas
@@ -94,7 +91,7 @@ function reset(){
   for(let p of placements) {
     let sx = (p.fx - margin) * scale + margin;
     let sy = (p.fy - margin) * scale + margin;
-    shadowRects.push(new Shadowed(sx, sy, p.w * scale, p.h * scale, p.offset * scale, dir));
+    shadowRects.push(new Shadowed(sx, sy, p.w * scale, p.h * scale, p.offset * scale, p.dir));
   }
 }
 
