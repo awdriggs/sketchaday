@@ -1,14 +1,19 @@
+//some ideas..
+//done! make drunk walkers be the center points, loops get weird, use the mover class in tools.
+//change the angle direction? neg will make it turn counter clock wise. can you you change this is a sin value? curly q's then?
+
 //looping with noise
 let noiseStep = 0.02;
 let count = 4;
 
 let rotators = [];
+let movers = [];
 
 function setup() {
-  createCanvas(300, 300);
+  createCanvas(800, 800);
   // createCanvas(windowWidth, windowHeight);
 
-start();
+  start();
   // fill(0);
   strokeWeight(10 * width/800);
   noFill();
@@ -17,9 +22,12 @@ start();
 function draw() {
   background(255);
 
-  for(let r of rotators){
-    r.update();
-    r.draw();
+  for(let i = 0; i < movers.length; i++){
+    movers[i].update();
+
+    // movers[i].draw();
+    rotators[i].update(movers[i].loc)
+    rotators[i].draw();
   }
 }
 
@@ -42,11 +50,21 @@ function mousePressed(){
 
 function start(){
   rotators = [];
+  movers = [];
+
+  let boundsW = width/3;
+  let boundsH = height/3;
+  let boundsX = width/2 - boundsW/2;
+  let boundsY = height/2 - boundsH/2;
+
   for(let i = 0; i < count; i++){
-    let offset = width/10;
-    let offsetX = random(-offset, offset);
-    let offsetY = random(-offset, offset);
-    rotators.push(new Rotator(width/2 + offsetX, height/2 + offsetY, random(width/4, width/2), random(), random(0.01, 0.03), random(0.3, 0.6), random(10, 11)));
+    //create a mover
+    let x = random(boundsX, boundsX + boundsW);
+    let y = random(boundsY, boundsY + boundsH);
+
+    movers.push(new Mover(x, y, boundsX, boundsY, boundsW, boundsH, 2));
+    //make the rotators xy the same as the mover.
+    rotators.push(new Rotator(x, y, random(width/4, width/2), random(), random(0.01, 0.03), random(0.3, 0.6), random(10, 11)));
   }
 }
 
@@ -67,11 +85,15 @@ class Rotator {
     this.positions = [];
     this.maxPoints = round(TWO_PI / this.speed) * numLoops;
 
-
     this.update(); //ensure init
   }
 
-  update(){
+  update(center){
+    if(center){
+      this.centerX = center.x;
+      this.centerY = center.y;
+    }
+
     let r = map(noise(this.nPosition), 0, 1, this.maxRadius/2, this.maxRadius);
     let x = this.centerX + cos(this.angle) * r
     let y = this.centerY + sin(this.angle) * r
