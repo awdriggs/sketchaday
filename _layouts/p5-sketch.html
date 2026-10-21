@@ -68,6 +68,14 @@ body {
   <body>
     <main>
       {{ content }}
+      <noscript>
+        {% if page.thumbnail %}
+        <img src="{{ page.thumbnail }}" alt="{{ page.title }}" style="max-width:800px;width:100%;display:block;margin:0 auto;">
+        {% endif %}
+        <p style="text-align:center;font-family:Arial,sans-serif;margin-top:1em;">
+          <a href="{{ page.url | prepend: site.baseurl | prepend: site.url }}">Open in a browser for interactive sketch</a>
+        </p>
+      </noscript>
     </main>
     <a href="#" class="back-link" onclick="history.back(); return false;"><img src="assets/back.svg"></a>
     <script src="{{ page.script | relative_url }}"></script>
