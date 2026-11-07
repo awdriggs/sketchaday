@@ -1,3 +1,6 @@
+// currentScript is only set while this file first runs, so grab it at load time
+const SKETCH_NAME = document.currentScript.src.split('/').pop().replace('.js', '');
+
 function setup() {
   createCanvas(800, 800);
   // createCanvas(windowWidth, windowHeight);
@@ -13,9 +16,9 @@ function draw() {
 
 function keyPressed(){
   if(key == "g"){
-    saveGif('thumb', floor(random(3, 8)));
+    saveGif(SKETCH_NAME, floor(random(3, 8)));
   } else if(key == "p"){
-    saveCanvas('thumb', "jpg");
+    saveCanvas(SKETCH_NAME, "jpg");
   }
 }
 
